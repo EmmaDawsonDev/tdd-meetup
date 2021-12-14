@@ -13,6 +13,7 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
 
 
 ### UML Diagram
+![UML Use case diagram for meetup website](./public/use-case-diagram.png)
 [Link to UML Use-case diagram](https://lucid.app/lucidchart/e1a7d026-085a-4f03-b951-886bf4a3ca92/edit?invitationId=inv_ab627182-8c22-4a37-bbb9-19315b323cf6)
 
 
