@@ -90,4 +90,4 @@ export const getPastMeetups = (currentDate: Date) => {
   return pastMeetups
 }
 
-console.log(getPastMeetups(new Date()))
+
