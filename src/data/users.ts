@@ -1,7 +1,7 @@
 import { getMaxListeners } from 'process'
-import { IUser } from '../models/user'
+import { IUser, IUserPassword } from '../models/user'
 
-const users: IUser[] = [
+const users: IUserPassword[] = [
   {
     id: 1,
     name: 'Hannah',
@@ -29,9 +29,7 @@ const users: IUser[] = [
   { id: 4, name: 'Sofie', email: 'sofie@gmail.com', password: 'sofieIsBest', attending: [], meetupOwner: [] },
 ]
 
-
-
-export const validateUser = (email: string, password: string) => {
+export const validateUser = (email: string, password: string): IUser | undefined => {
   const user = users.find(user => user.email === email)
 
   return user && user.password === password
