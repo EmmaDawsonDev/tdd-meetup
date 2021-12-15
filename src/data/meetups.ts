@@ -2,24 +2,24 @@ import { IMeetup } from '../models/meetup'
 
 const meetups: IMeetup[] = [
   {
-    id: 1,
-    title: 'Javascript meetup',
-    startDate: new Date('2021-12-17T13:00:00'),
-    endDate: new Date('2021-12-17T15:00:00'),
-    hostName: 'Hannah',
-    description: 'This is a meetup',
-    location: '10 Main Street, London',
-    attendees: [],
-    comments: [],
-    rating: 0,
-  },
-  {
     id: 2,
     title: 'Advanced Javascript meetup',
     startDate: new Date('2021-12-27T13:00:00'),
     endDate: new Date('2021-12-27T15:00:00'),
     hostName: 'Hannah',
     description: 'This is a more advanced meetup about Javascript',
+    location: '10 Main Street, London',
+    attendees: [],
+    comments: [],
+    rating: 0,
+  },
+  {
+    id: 1,
+    title: 'Javascript meetup',
+    startDate: new Date('2021-12-17T13:00:00'),
+    endDate: new Date('2021-12-17T15:00:00'),
+    hostName: 'Hannah',
+    description: 'This is a meetup',
     location: '10 Main Street, London',
     attendees: [],
     comments: [],
@@ -76,14 +76,14 @@ export const getMeetupById = (id: number) => {
   return meetup
 }
 
-export const getCurrentMeetups = (currentDate: Date) => {
+export const getAllCurrentMeetups = (currentDate: Date) => {
   let now = currentDate.getTime()
 
   const comingMeetups = meetups.filter(meetup => meetup.startDate.getTime() > now)
   return comingMeetups
 }
 
-export const getPastMeetups = (currentDate: Date) => {
+export const getAllPastMeetups = (currentDate: Date) => {
   let now = currentDate.getTime()
 
   const pastMeetups = meetups.filter(meetup => meetup.startDate.getTime() < now)

@@ -1,11 +1,18 @@
-import { configureStore } from '@reduxjs/toolkit'
-import userReducer from './users'
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
+import userReducer from './usersSlice'
+import meetupReducer from './meetupsSlice'
+
 // ...
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
+    meetups: meetupReducer,
   },
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
