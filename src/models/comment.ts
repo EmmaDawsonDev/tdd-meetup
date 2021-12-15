@@ -1,5 +1,5 @@
 export interface IComment {
-  username: string
+  name: string
   date: Date
   content: string
 }

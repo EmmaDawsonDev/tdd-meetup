@@ -1,4 +1,3 @@
-import { IUser } from './user'
 import { IComment } from './comment'
 
 export interface IMeetup {
@@ -10,7 +9,7 @@ export interface IMeetup {
   description: string
   price?: number
   location: string
-  atendees: IUser[]
+  attendees: string[]
   comments: IComment[]
   rating: number
 }
