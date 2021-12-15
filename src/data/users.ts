@@ -29,12 +29,12 @@ const users: IUser[] = [
   { id: 4, name: 'Sofie', email: 'sofie@gmail.com', password: 'sofieIsBest', attending: [], meetupOwner: [] },
 ]
 
-export const getAllUsers = () => {
-  return users
-}
 
-export const getUserById = (id: number) => {
-  const user = users.find(user => user.id === id)
 
-  return user
+export const validateUser = (email: string, password: string) => {
+  const user = users.find(user => user.email === email)
+
+  return user && user.password === password
+    ? { id: user.id, name: user.name, email: user.email, attending: user.attending, meetupOwner: user.meetupOwner }
+    : undefined
 }
