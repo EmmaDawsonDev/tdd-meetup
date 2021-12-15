@@ -3,13 +3,14 @@ import { IMeetup } from '../../models/meetup'
 
 interface Props {
   meetup: IMeetup
+  testId: string
 }
 
 const Card = (props: Props) => {
-  const { meetup } = props
+  const { meetup, testId } = props
   return (
     <article>
-      <div role="listitem">
+      <div role="listitem" data-testid={testId}>
         <h3>{meetup.title}</h3>
         <p>{meetup.startDate.toDateString()}</p>
         <p>{meetup.endDate.toDateString()}</p>

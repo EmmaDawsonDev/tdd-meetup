@@ -19,9 +19,10 @@ const Home = () => {
   return (
     <main>
       <section>
+        <h2>Current meetups</h2>
         <ul>
           {currentMeetups.map(meetup => (
-            <Card meetup={meetup} key={meetup.id} />
+            <Card meetup={meetup} testId={'currentListItem'} key={meetup.id} />
           ))}
         </ul>
       </section>

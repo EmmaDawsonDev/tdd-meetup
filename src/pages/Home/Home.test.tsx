@@ -18,7 +18,7 @@ describe('Home unit tests', () => {
         <Home />
       </Provider>
     )
-    const products = await screen.findAllByRole('listitem')
+    const products = await screen.findAllByTestId('currentListItem')
     expect(products).toHaveLength(3)
   })
 })
