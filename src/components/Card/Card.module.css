@@ -1,0 +1,7 @@
+.cardWrapper {
+  width: 100%;
+  max-width: 60rem;
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 1rem;
+}

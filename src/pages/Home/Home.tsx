@@ -7,6 +7,8 @@ import { getAllCurrentMeetups } from '../../data/meetups'
 
 import Card from '../../components/Card/Card'
 
+import classes from './Home.module.css'
+
 const Home = () => {
   const currentMeetups = useSelector((state: RootState) => state.meetups.currentMeetups)
   const dispatch = useDispatch()
@@ -20,7 +22,7 @@ const Home = () => {
     <main>
       <section>
         <h2>Current meetups</h2>
-        <ul>
+        <ul className={classes.cardContainer}>
           {currentMeetups.map(meetup => (
             <Card meetup={meetup} testId={'currentListItem'} key={meetup.id} />
           ))}
