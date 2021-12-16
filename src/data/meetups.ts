@@ -55,8 +55,8 @@ const meetups: IMeetup[] = [
   {
     id: 5,
     title: 'Backend programming',
-    startDate: new Date('2021-11-08T19:30:00'),
-    endDate: new Date('2021-11-08T20:30:00'),
+    startDate: new Date('2021-12-08T19:30:00'),
+    endDate: new Date('2021-12-08T20:30:00'),
     hostName: 'Joe',
     description: 'come and learn backend with us!',
     location: 'Stureplan 1, Stockholm',

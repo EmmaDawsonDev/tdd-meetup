@@ -1,14 +1,33 @@
-.cardWrapper {
+.cardWrapperCurrent {
   width: 100%;
-  border: 1px solid gray;
+  border: 2px solid rgb(143, 33, 125);
   border-radius: 10px;
   padding: 1rem;
+}
+
+.cardWrapperCurrent h3 {
+  color: rgb(143, 33, 125);
+}
+
+.cardWrapperPast {
+  width: 100%;
+  border: 1px solid rgb(194, 194, 194);
+  border-radius: 10px;
+  padding: 1rem;
+  color: rgb(121, 121, 121);
 }
 
 .cardLink {
   text-decoration: none;
   color: black;
   width: 100%;
+  border-radius: 10px;
+}
+
+.cardLink:hover, .cardLink:focus-visible {
+  box-shadow: 4px 3px 9px 0px rgba(191,191,191,1);
+  -webkit-box-shadow: 4px 3px 9px 0px rgba(191,191,191,1);
+  -moz-box-shadow: 4px 3px 9px 0px rgba(191,191,191,1);
 }
 
 .cardLink:visited {

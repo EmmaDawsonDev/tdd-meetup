@@ -25,6 +25,6 @@ export const meetupSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { getCurrentMeetups } = meetupSlice.actions
+export const { getCurrentMeetups, getPastMeetups } = meetupSlice.actions
 
 export default meetupSlice.reducer

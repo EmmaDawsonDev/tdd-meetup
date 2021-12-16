@@ -6,14 +6,18 @@ import { Link } from 'react-router-dom'
 interface Props {
   meetup: IMeetup
   testId: string
+  past?: boolean
 }
 
 const Card = (props: Props) => {
-  const { meetup, testId } = props
+  const { meetup, testId, past } = props
   return (
     <Link to={`/meetups/${meetup.id}`} className={classes.cardLink}>
-      <div role="listitem" data-testid={testId} className={classes.cardWrapper}>
-        <h3>{meetup.title}</h3>
+      <div role="listitem" data-testid={testId} className={past ? classes.cardWrapperPast : classes.cardWrapperCurrent}>
+        <h3>
+          {meetup.title} {past && <span> - PAST</span>}
+        </h3>
+
         <p>
           <strong>Start: </strong>
           {meetup.startDate.toDateString()} {meetup.startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}

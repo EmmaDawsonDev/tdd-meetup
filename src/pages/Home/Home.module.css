@@ -6,3 +6,23 @@
   padding: 0;
   
 }
+
+.filtersContainer {
+  margin: 0.5rem 0;
+}
+
+.filtersContainer button {
+  font-size: .9rem;
+  background-color: rgb(228, 228, 228);
+  border: none;
+  border-radius: 5px;
+  padding: 0.2em 0.5em;
+}
+
+.delete {
+  color: rgb(143, 33, 125);
+}
+
+.meetupList {
+  margin-top: 2rem;
+}

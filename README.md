@@ -29,15 +29,20 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
     - There is a search box on the homepage ✅
     - Search by name filters all meetups and renders those that match ✅
     - Search is case insensitive ✅
-    - If search returns nothing a message is rendered on screen
-    - the search string is rendered on the page
+    - If search returns nothing a message is rendered on screen ✅
+    - the search string is rendered on the page when the search string is not empty ✅
 
 - As a website user I want to be able to see past meetups so that I can see what kind of events happen in my area
-    - Site renders a list of past meetups in reverse chronological order
+    - Site renders a list of past meetups ✅
+    - Past meetups are in reverse chronological order ✅
+  
+- As a website user I want to be able to search past meetups by name so that I can quickly find one I priviously attended
+    - Search by name filters all meetups and renders those that match ✅
+    - If search returns nothing a message is rendered on screen ✅
 
 - As a website user I want to see the difference between coming and past events so I don't register for an event which is already over
-    - Past meetups cards are a different color
-    - Card displays message that event has already happened
+    - Past meetups cards have a different color text ✅
+    - Card displays message that event has already happened ✅
 
 - As a website user I want to be able to find past and present meetups by date so I can quickly filter by dates I know I am able to attend
     - There is a date filter on the main page
