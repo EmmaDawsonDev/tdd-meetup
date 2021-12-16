@@ -23,6 +23,16 @@
   color: rgb(143, 33, 125);
 }
 
+
+
 .meetupList {
   margin-top: 2rem;
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .meetupsContainer {
+    display: flex;
+    gap: 1rem;
+  }
 }

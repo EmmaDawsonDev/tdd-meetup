@@ -56,30 +56,32 @@ const Home = () => {
           )}
         </div>
       </section>
-      <section className={classes.meetupList}>
-        <h2>Current meetups</h2>
-        {filteredCurrentMeetups.length > 0 ? (
-          <ul className={classes.cardContainer}>
-            {filteredCurrentMeetups.map(meetup => (
-              <Card meetup={meetup} testId={'currentListItem'} key={meetup.id} />
-            ))}
-          </ul>
-        ) : (
-          <p>No current meetups found</p>
-        )}
-      </section>
-      <section className={classes.meetupList}>
-        <h2>Past meetups</h2>
-        {filteredPastMeetups.length > 0 ? (
-          <ul className={classes.cardContainer}>
-            {filteredPastMeetups.map(meetup => (
-              <Card meetup={meetup} testId={'pastListItem'} key={meetup.id} past />
-            ))}
-          </ul>
-        ) : (
-          <p>No past meetups found</p>
-        )}
-      </section>
+      <div className={classes.meetupsContainer}>
+        <section className={classes.meetupList}>
+          <h2>Current meetups</h2>
+          {filteredCurrentMeetups.length > 0 ? (
+            <ul className={classes.cardContainer}>
+              {filteredCurrentMeetups.map(meetup => (
+                <Card meetup={meetup} testId={'currentListItem'} key={meetup.id} />
+              ))}
+            </ul>
+          ) : (
+            <p>No current meetups found</p>
+          )}
+        </section>
+        <section className={classes.meetupList}>
+          <h2>Past meetups</h2>
+          {filteredPastMeetups.length > 0 ? (
+            <ul className={classes.cardContainer}>
+              {filteredPastMeetups.map(meetup => (
+                <Card meetup={meetup} testId={'pastListItem'} key={meetup.id} past />
+              ))}
+            </ul>
+          ) : (
+            <p>No past meetups found</p>
+          )}
+        </section>
+      </div>
     </main>
   )
 }
