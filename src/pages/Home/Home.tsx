@@ -18,15 +18,21 @@ const Home = () => {
     dispatch(getCurrentMeetups(currentMeetups))
   }, [dispatch])
 
+  const sortedCurrentMeetups = currentMeetups.slice().sort((a, b) => +a.startDate - +b.startDate)
+
   return (
     <main>
       <section>
         <h2>Current meetups</h2>
-        <ul className={classes.cardContainer}>
-          {currentMeetups.map(meetup => (
-            <Card meetup={meetup} testId={'currentListItem'} key={meetup.id} />
-          ))}
-        </ul>
+        {sortedCurrentMeetups.length > 0 ? (
+          <ul className={classes.cardContainer}>
+            {sortedCurrentMeetups.map(meetup => (
+              <Card meetup={meetup} testId={'currentListItem'} key={meetup.id} />
+            ))}
+          </ul>
+        ) : (
+          <p>No meetups found</p>
+        )}
       </section>
     </main>
   )

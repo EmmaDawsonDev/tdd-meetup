@@ -14,12 +14,12 @@ const Card = (props: Props) => {
       <h3>{meetup.title}</h3>
       <p>
         <strong>Start: </strong>
-        {meetup.startDate.toDateString()} {meetup.startDate.toLocaleTimeString()}
+        {meetup.startDate.toDateString()} {meetup.startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}
       </p>
       <p></p>
       <p>
         <strong>End: </strong>
-        {meetup.endDate.toDateString()} {meetup.endDate.toLocaleTimeString()}
+        {meetup.endDate.toDateString()} {meetup.endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}
       </p>
       <p>
         <strong>Location: </strong>

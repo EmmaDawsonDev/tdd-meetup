@@ -21,4 +21,18 @@ describe('Home unit tests', () => {
     const products = await screen.findAllByTestId('currentListItem')
     expect(products).toHaveLength(3)
   })
+  it('renders a list in chronological order', async () => {
+    renderWithRouter(
+      <Provider store={store}>
+        <Home />
+      </Provider>
+    )
+
+    const products = await screen.findAllByTestId('currentListItem')
+    expect(products[0]).toContainHTML("<p><strong>Start: </strong>Fri Dec 17 2021 13:00</p>")
+    expect(products[1]).toContainHTML("<p><strong>Start: </strong>Mon Dec 27 2021 13:00</p>")
+    expect(products[2]).toContainHTML("<p><strong>Start: </strong>Fri Jan 07 2022 19:30</p>")
+  })
 })
+
+// Fri Dec 17 2021

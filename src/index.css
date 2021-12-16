@@ -42,6 +42,10 @@ select {
   font: inherit;
 }
 
+button {
+  cursor: pointer;
+}
+
 html:focus-within {
   scroll-behavior: smooth;
 }

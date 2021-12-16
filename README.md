@@ -20,11 +20,10 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
 ### User Stories
 - As a website user I want to be able to see all upcoming meetups listed by date (soonest first) so that I can see which meetups are happening soon
     - Site renders a list of all coming meetups in chronological order, soonest at the top of the page
-    - It renders a message if there are no meetups
-
+    
 - As a website user I want to see an overview of all meetups and be able to get more details about the ones that interest me so that I am not overwhelmed by too much information at once
     - Each meetup card contains info about date, time, name and location only.
-    - Each meetup card is clickable and leads to a meetup detail page.
+    - Each meetup card is clickable and leads to a meetup detail page (integration test)
 
 - As a website user I want to be able to search meetups by name so that I can find ones that align with my interests
     - There is a search box on the homepage
