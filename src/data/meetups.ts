@@ -4,8 +4,8 @@ const meetups: IMeetup[] = [
   {
     id: 2,
     title: 'Advanced Javascript meetup',
-    startDate: new Date('2021-12-27T13:00:00'),
-    endDate: new Date('2021-12-27T15:00:00'),
+    startDate: new Date('2022-12-27T13:00:00'),
+    endDate: new Date('2022-12-27T15:00:00'),
     hostName: 'Hannah',
     description: 'This is a more advanced meetup about Javascript',
     location: '10 Main Street, London',
@@ -16,8 +16,8 @@ const meetups: IMeetup[] = [
   {
     id: 1,
     title: 'Javascript meetup',
-    startDate: new Date('2021-12-17T13:00:00'),
-    endDate: new Date('2021-12-17T15:00:00'),
+    startDate: new Date('2022-12-17T13:00:00'),
+    endDate: new Date('2022-12-17T15:00:00'),
     hostName: 'Hannah',
     description: 'This is a meetup',
     location: '10 Main Street, London',
@@ -43,8 +43,8 @@ const meetups: IMeetup[] = [
   {
     id: 4,
     title: 'Frontend programming',
-    startDate: new Date('2022-01-07T19:30:00'),
-    endDate: new Date('2022-01-07T20:30:00'),
+    startDate: new Date('2023-01-07T19:30:00'),
+    endDate: new Date('2023-01-07T20:30:00'),
     hostName: 'Joe',
     description: 'come and learn frontend with us!',
     location: 'Stureplan 1, Stockholm',

@@ -4,10 +4,10 @@ This project is a final project for the course Design Principles and Patterns at
 The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google.com/document/d/136DTDYFeX-N2n4-fI_kryrc2Fv1--wSA-94aIAdNDJE/edit#heading=h.y6j2y3f03r4h)
 
 ### Criteria:
-- [] UML use-case diagram
-- [] User stories
+- [x] UML use-case diagram
+- [x] User stories
 - [] Test Driven Development
-- [] Typescript interfaces describe the data
+- [x] Typescript interfaces describe the data
 - [] Implement the app
 - [] CSS, UI and UX should be functional
 
@@ -45,14 +45,17 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
     - Card displays message that event has already happened ✅
 
 - As a website user I want to be able to find past and present meetups by date so I can quickly filter by dates I know I am able to attend
-    - There is a date filter on the main page
-    - The date filter is rendered on the page
-    - Dates can be chosen in the past and future
-    - Choosing a date filters the meetups to just the specific date and renders a filtered list on the page
+    - There is a date filter on the main page ✅
+    - The date filter is rendered on the page ✅
+    - Dates can be chosen in the past and future ✅
+    - Choosing a date filters the meetups to just the specific date and renders a filtered list on the page ✅
+    - If no dates match a 'no matches found' message is rendered ✅
 
 - As a website user I want to be able to undo any filters and searches I do so that I can see all meetups again
-    - The search string and date filter string have a cross beside them
-    - Clicking the cross removes the filter
+    - The search string and date filter string have a cross beside them ✅
+    - Clicking the search string button removes the search filter ✅
+    - Clicking the date button removes the date filter ✅
+    - There is a remove all filters button which clears both search and date ✅
 
 - As a website user I want to be able to see time, date and location of upcoming meetups so that I know when and how to attend
     - Meetup card displays time, date and location 

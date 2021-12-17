@@ -17,6 +17,7 @@ const Home = () => {
   const [searchPhrase, setSearchPhrase] = useState('')
   const [filteredCurrentMeetups, setFilteredCurrentMeetups] = useState<IMeetup[]>([])
   const [filteredPastMeetups, setFilteredPastMeetups] = useState<IMeetup[]>([])
+  const [dateFilter, setDateFilter] = useState<string>('')
 
   const dispatch = useDispatch()
 
@@ -29,28 +30,78 @@ const Home = () => {
 
   useEffect(() => {
     const sortedCurrentMeetups = currentMeetups.slice().sort((a, b) => +a.startDate - +b.startDate)
-    setFilteredCurrentMeetups(sortedCurrentMeetups.filter(meetup => meetup.title.toLowerCase().includes(searchPhrase.trim().toLowerCase())))
-  }, [currentMeetups, searchPhrase])
+    const filterBySearch = sortedCurrentMeetups.filter(meetup => meetup.title.toLowerCase().includes(searchPhrase.trim().toLowerCase()))
+    if (dateFilter) {
+      const filterBySearchAndDate = filterBySearch.filter(meetup => meetup.startDate.toISOString().startsWith(dateFilter))
+      setFilteredCurrentMeetups(filterBySearchAndDate)
+    } else {
+      setFilteredCurrentMeetups(filterBySearch)
+    }
+  }, [currentMeetups, searchPhrase, dateFilter])
 
   useEffect(() => {
     const sortedPastMeetups = pastMeetups.slice().sort((a, b) => +b.startDate - +a.startDate)
-    setFilteredPastMeetups(sortedPastMeetups.filter(meetup => meetup.title.toLowerCase().includes(searchPhrase.trim().toLowerCase())))
-  }, [pastMeetups, searchPhrase])
+    const filterBySearch = sortedPastMeetups.filter(meetup => meetup.title.toLowerCase().includes(searchPhrase.trim().toLowerCase()))
+    if (dateFilter) {
+      const filterBySearchAndDate = filterBySearch.filter(meetup => meetup.startDate.toISOString().startsWith(dateFilter))
+      setFilteredPastMeetups(filterBySearchAndDate)
+    } else {
+      setFilteredPastMeetups(filterBySearch)
+    }
+  }, [pastMeetups, searchPhrase, dateFilter])
 
   const handleSearch = (e: React.FormEvent<HTMLInputElement>) => {
     const phrase = e.currentTarget.value
     setSearchPhrase(phrase)
   }
 
+  const handleDateFilter = (e: React.FormEvent<HTMLInputElement>) => {
+    const date = e.currentTarget.value
+    setDateFilter(date)
+  }
+
+  const clearSearch = () => {
+    setSearchPhrase('')
+  }
+
+  const clearDateFilter = () => {
+    setDateFilter('')
+  }
+
+  const clearAllFilters = () => {
+    clearDateFilter()
+    clearSearch()
+  }
+
   return (
     <main>
       <section>
-        <label htmlFor="search">Search: </label>
-        <input type="search" placeholder="Search" name="search" id="search" onChange={handleSearch} value={searchPhrase} />
+        <div>
+          <div>
+            <label htmlFor="search">Search: </label>
+            <input type="search" placeholder="Search" name="search" id="search" onChange={handleSearch} value={searchPhrase} />
+          </div>
+          <div>
+            <label htmlFor="date">Date: </label>
+            <input type="date" name="date" id="date" value={dateFilter} onChange={handleDateFilter} />
+          </div>
+        </div>
         <div className={classes.filtersContainer}>
-          {searchPhrase.trim() != '' && (
-            <button>
+          {searchPhrase.trim() !== '' && (
+            <button onClick={clearSearch}>
               {searchPhrase}
+              <span className={classes.delete}> x </span>
+            </button>
+          )}
+          {dateFilter && (
+            <button onClick={clearDateFilter}>
+              {dateFilter}
+              <span className={classes.delete}> x </span>
+            </button>
+          )}
+          {searchPhrase.trim() !== '' && dateFilter && (
+            <button onClick={clearAllFilters}>
+              Remove all
               <span className={classes.delete}> x </span>
             </button>
           )}

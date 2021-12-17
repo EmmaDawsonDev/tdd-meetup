@@ -12,7 +12,7 @@ const MeetupDetail = () => {
     const meetup = getMeetupById(+id!)
 
     meetup ? setMeetup(meetup) : setError(true)
-  }, [])
+  }, [id])
 
   return <main>{meetup && <h2>{meetup.title}</h2>}</main>
 }
