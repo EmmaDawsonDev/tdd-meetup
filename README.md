@@ -58,7 +58,7 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
     - There is a remove all filters button which clears both search and date ✅
 
 - As a website user I want to be able to see time, date and location of upcoming meetups so that I know when and how to attend
-    - Meetup card displays time, date and location 
+    - Meetup card displays time, date and location ✅
     - Meetup detail page displays time, date and location as well as description, organiser and other info
 
 - As a website user I want to be able to login so that I can register for events

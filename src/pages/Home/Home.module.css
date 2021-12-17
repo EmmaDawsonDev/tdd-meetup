@@ -7,22 +7,39 @@
   
 }
 
+
+
 .filtersContainer {
-  margin: 0.5rem 0;
+  margin: 1rem 0;
 }
 
 .filtersContainer button {
-  font-size: .9rem;
+  font-size: .8rem;
   background-color: rgb(228, 228, 228);
   border: none;
   border-radius: 5px;
-  padding: 0.2em 0.5em;
+  padding: 0.2em 1em;
+  margin-right: 0.5rem;;
+}
+
+.filtersContainer button:hover,
+.filtersContainer button:focus-visible {
+  background-color: rgb(189, 189, 189);
 }
 
 .delete {
   color: rgb(143, 33, 125);
 }
 
+.inputsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputsContainer input {
+  width: 100%;
+}
 
 
 .meetupList {
@@ -35,4 +52,9 @@
     display: flex;
     gap: 1rem;
   }
+  .inputsContainer {
+    flex-direction: row;
+    gap: 1rem;
+  }
+  
 }

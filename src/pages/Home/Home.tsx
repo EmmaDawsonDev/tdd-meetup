@@ -76,10 +76,10 @@ const Home = () => {
   return (
     <main>
       <section>
-        <div>
+        <div className={classes.inputsContainer}>
           <div>
             <label htmlFor="search">Search: </label>
-            <input type="search" placeholder="Search" name="search" id="search" onChange={handleSearch} value={searchPhrase} />
+            <input type="search" placeholder="Search by name" name="search" id="search" onChange={handleSearch} value={searchPhrase} />
           </div>
           <div>
             <label htmlFor="date">Date: </label>

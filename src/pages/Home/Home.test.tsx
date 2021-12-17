@@ -245,4 +245,26 @@ describe('Home unit tests - date picker', () => {
   })
 })
 
+describe('Home integration with card', () => {
+  it('card displays title', () => {
+    const meetupCards = screen.getAllByTestId('currentListItem')
+    const meetup1 = meetupCards[0]
+    expect(meetup1).toHaveTextContent('Javascript meetup')
+  })
+  it('card displays start', () => {
+    const meetupCards = screen.getAllByTestId('currentListItem')
+    const meetup1 = meetupCards[0]
+    expect(meetup1).toHaveTextContent('Start: Sat Dec 17 2022 13:00')
+  })
+  it('card displays end', () => {
+    const meetupCards = screen.getAllByTestId('currentListItem')
+    const meetup1 = meetupCards[0]
+    expect(meetup1).toHaveTextContent('End: Sat Dec 17 2022 15:00')
+  })
+  it('card displays location', () => {
+    const meetupCards = screen.getAllByTestId('currentListItem')
+    const meetup1 = meetupCards[0]
+    expect(meetup1).toHaveTextContent('Location: 10 Main Street, London')
+  })
+})
 
