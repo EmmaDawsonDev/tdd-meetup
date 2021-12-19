@@ -36,7 +36,7 @@ describe('App integration tests', () => {
     const card1 = cards[0]
     userEvent.click(card1)
 
-    const meetupTitle = await screen.findByText('Javascript meetup')
-    expect(meetupTitle).toBeInTheDocument()
+    const meetupPage = await screen.findByTestId('meetup-detail-page')
+    expect(meetupPage).toBeInTheDocument()
   })
 })

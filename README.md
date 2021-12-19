@@ -59,7 +59,7 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
 
 - As a website user I want to be able to see time, date and location of upcoming meetups so that I know when and how to attend
     - Meetup card displays time, date and location ✅
-    - Meetup detail page displays time, date and location as well as description, organiser and other info
+    - Meetup detail page displays time, date and location as well as description and organiser ✅
 
 - As a website user I want to be able to login so that I can register for events
     - Login button visible in header when user is logged out
