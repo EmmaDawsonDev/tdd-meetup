@@ -39,4 +39,29 @@ describe('App integration tests', () => {
     const meetupPage = await screen.findByTestId('meetup-detail-page')
     expect(meetupPage).toBeInTheDocument()
   })
+  it('renders log in page when login button in header is clicked', async () => {
+    renderWithRouter(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    )
+
+    const loginBtn = screen.getByRole('button', { name: /login/i })
+    userEvent.click(loginBtn)
+    const loginPage = await screen.findByRole('heading', { name: 'Log in' })
+    expect(loginPage).toBeInTheDocument()
+  })
+  it("doesn't render login button in header when route is /login", () => {
+    renderWithRouter(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    )
+
+    const loginBtn = screen.getByRole('button', { name: /login/i })
+    userEvent.click(loginBtn)
+
+    const sameLoginButton = screen.queryByRole('button', { name: /login/i })
+    expect(sameLoginButton).not.toBeInTheDocument()
+  })
 })

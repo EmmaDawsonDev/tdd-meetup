@@ -3,4 +3,19 @@
   background-color: rgb(143, 33, 125);
   color: white;
   padding: 1rem;
+  display: flex;
+  justify-content: space-between;
 }
+
+.header button {
+  background-color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5em 1em;
+}
+
+.header button:hover {
+  background-color: #ebebeb;
+  transform: scale(1.05);
+}
+

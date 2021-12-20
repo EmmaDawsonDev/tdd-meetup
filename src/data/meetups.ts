@@ -11,7 +11,7 @@ const meetups: IMeetup[] = [
     location: '10 Main Street, London',
     attendees: [],
     comments: [],
-    rating: 0,
+    rating: [],
   },
   {
     id: 1,
@@ -23,7 +23,7 @@ const meetups: IMeetup[] = [
     location: '10 Main Street, London',
     attendees: [],
     comments: [],
-    rating: 0,
+    rating: [],
   },
   {
     id: 3,
@@ -32,13 +32,14 @@ const meetups: IMeetup[] = [
     endDate: new Date('2021-12-07T20:00:00'),
     hostName: 'Joe',
     description: 'come and swim with us!',
+    price: 125,
     location: 'Vasagatan 15, Stockholm',
     attendees: ['Hannah', 'Chris'],
     comments: [
       { name: 'Hannah', date: new Date('2001-12-06T11:00:00'), content: 'How warm is the water?' },
       { name: 'Joe', date: new Date('2001-12-06T11:21:03'), content: "It's about 30 degrees" },
     ],
-    rating: 5,
+    rating: [],
   },
   {
     id: 4,
@@ -46,11 +47,12 @@ const meetups: IMeetup[] = [
     startDate: new Date('2023-01-07T19:30:00'),
     endDate: new Date('2023-01-07T20:30:00'),
     hostName: 'Joe',
+    price: 50,
     description: 'come and learn frontend with us!',
     location: 'Stureplan 1, Stockholm',
     attendees: [],
     comments: [],
-    rating: 0,
+    rating: [],
   },
   {
     id: 5,
@@ -62,7 +64,7 @@ const meetups: IMeetup[] = [
     location: 'Stureplan 1, Stockholm',
     attendees: ['Hannah'],
     comments: [],
-    rating: 4,
+    rating: [],
   },
 ]
 

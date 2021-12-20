@@ -39,4 +39,8 @@ describe('Meetup detail unit tests', () => {
     const description = screen.getByText('Description', { exact: false })
     expect(description).toBeInTheDocument()
   })
+  it('displays the price', () => {
+    const price = screen.getByText('Price', { exact: false })
+    expect(price).toBeInTheDocument()
+  })
 })

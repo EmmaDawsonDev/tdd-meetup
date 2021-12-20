@@ -39,6 +39,10 @@ const MeetupDetail = () => {
             <strong>Description: </strong>
             {meetup.description}
           </p>
+          <p>
+            <strong>Price: </strong>
+            {meetup.price ? `${meetup.price} SEK` : 'FREE'}
+          </p>
         </div>
       )}
       {!meetup && error && <h2>Something went wrong.</h2>}

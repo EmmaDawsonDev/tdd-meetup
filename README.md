@@ -60,10 +60,20 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
 - As a website user I want to be able to see time, date and location of upcoming meetups so that I know when and how to attend
     - Meetup card displays time, date and location ✅
     - Meetup detail page displays time, date and location as well as description and organiser ✅
+    - Detail page shows the price of the meetup ✅
 
 - As a website user I want to be able to login so that I can register for events
-    - Login button visible in header when user is logged out
+    - Login button visible in header when user is logged out ✅
+    - Clicking the login button takes me to a login page ✅
+    - Login button in header is not displayed on login route ✅
+    - There is an input for email on the login page ✅
+    - There is an input for password on the login page ✅
+    - There is a login button on the login page ✅
+    - Clicking log in button logs user in and redirects back to previous page
+    - An error is displayed if login credentials are wrong
     - Username is displayed in header when user is logged in
+    - Login button is not displayed when user is logged in
+    - Login route is not reachable when already logged in
 
 - As a logged in website user I want to be able to register myself for an event so that I can save my place
     - Attend button is visible on meetup detail page when user is logged in and attendee limit hasn't been reached
