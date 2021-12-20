@@ -16,6 +16,15 @@ const MeetupDetail = () => {
     meetup ? setMeetup(meetup) : setError(true)
   }, [id])
 
+  const msToTime = (start: number, end: number) => {
+    let s = end - start
+
+    let hrs = s / (3.6 * 10 ** 6)
+    let time = ''
+    hrs < 1 ? (time = `${hrs * 60} minutes`) : hrs === 1 ? (time = `${hrs} hour`) : (time = `${hrs} hours`)
+    return time
+  }
+
   return (
     <main>
       {meetup && (
@@ -44,6 +53,10 @@ const MeetupDetail = () => {
             <p>
               <strong>End: </strong>
               {meetup.endDate.toDateString()} {meetup.endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}
+            </p>
+            <p>
+              <strong>Duration: </strong>
+              {msToTime(+meetup.startDate, +meetup.endDate)}
             </p>
             <p>
               <strong>Location: </strong>
