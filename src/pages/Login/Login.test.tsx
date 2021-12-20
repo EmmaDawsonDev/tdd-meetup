@@ -1,12 +1,9 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { renderWithRouter } from '../../testing-utils'
 import Login from './Login'
 import { store } from '../../store/store'
 import { Provider } from 'react-redux'
-import { mount } from 'enzyme'
-import { Routes, Route } from 'react-router'
-import { MemoryRouter } from 'react-router-dom'
 
 beforeEach(() => {
   renderWithRouter(
@@ -31,5 +28,49 @@ describe('Login unit tests', () => {
   it('renders a log in button', () => {
     const loginBtn = screen.getByTestId('login-btn')
     expect(loginBtn).toBeInTheDocument()
+  })
+  it('updates values in email input when typing', () => {
+    const emailInput = screen.getByLabelText(/email/i)
+
+    userEvent.type(emailInput, 'hannah@gmail.com')
+
+    expect(screen.getByRole('form')).toHaveFormValues({
+      email: 'hannah@gmail.com',
+      password: '',
+    })
+  })
+  it('updates values in password input when typing', () => {
+    const passwordInput = screen.getByLabelText(/password/i)
+
+    userEvent.type(passwordInput, 'hannahIsBest')
+
+    expect(screen.getByRole('form')).toHaveFormValues({
+      email: '',
+      password: 'hannahIsBest',
+    })
+  })
+  it('displays an error if user email is wrong', () => {
+    const emailInput = screen.getByLabelText(/email/i)
+    const passwordInput = screen.getByLabelText(/password/i)
+    const submitBtn = screen.getByTestId('login-btn')
+
+    userEvent.type(emailInput, 'hana@gmail.com')
+    userEvent.type(passwordInput, 'hannahIsBest')
+    userEvent.click(submitBtn)
+
+    const error = screen.getByText('Invalid user credentials')
+    expect(error).toBeInTheDocument()
+  })
+  it('displays an error if user password is wrong', () => {
+    const emailInput = screen.getByLabelText(/email/i)
+    const passwordInput = screen.getByLabelText(/password/i)
+    const submitBtn = screen.getByTestId('login-btn')
+
+    userEvent.type(emailInput, 'hannah@gmail.com')
+    userEvent.type(passwordInput, 'hannahIsWrong')
+    userEvent.click(submitBtn)
+
+    const error = screen.getByText('Invalid user credentials')
+    expect(error).toBeInTheDocument()
   })
 })

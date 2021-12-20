@@ -69,11 +69,11 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
     - There is an input for email on the login page ✅
     - There is an input for password on the login page ✅
     - There is a login button on the login page ✅
-    - Clicking log in button logs user in and redirects back to previous page
-    - An error is displayed if login credentials are wrong
-    - Username is displayed in header when user is logged in
-    - Login button is not displayed when user is logged in
-    - Login route is not reachable when already logged in
+    - Clicking log in button redirects back to previous page if log in is successful ✅
+    - An error is displayed if login credentials are wrong ✅
+    - Username is displayed in header when user is logged in ✅
+    - Login button is not displayed in header when user is logged in ✅
+    
 
 - As a logged in website user I want to be able to register myself for an event so that I can save my place
     - Attend button is visible on meetup detail page when user is logged in and attendee limit hasn't been reached
@@ -109,9 +109,9 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
     - My meetups page shows a list of meetups the user is organising
 
 - As a logged in website user I want to be able to log out so that my information is not visible to others sharing the same device
-    - When logged in, a log out button is visible in the header
-    - When clicked the site logs me out, forgets any data stored and returns me to the homepage
-    - The log in button should show in the header once logged out.
+    - When logged in, a log out button is visible in the header ✅
+    - When clicked the site logs me out, forgets any data stored and no longer shows my name in the header ✅
+    - The log in button should show in the header once logged out. ✅
 
 - As a meetup organiser I want to be able to publish a meetup event so that I can share it with users of the site
     - Once logged in an Add meetup button should render on the main page
@@ -140,4 +140,4 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
     - Meetups I own should show a delete button
     - Clicking the delete button asks the owner to confirm their choice before removing the meetup from the list
 
-
+// Persist user data in local storage

@@ -64,4 +64,88 @@ describe('App integration tests', () => {
     const sameLoginButton = screen.queryByRole('button', { name: /login/i })
     expect(sameLoginButton).not.toBeInTheDocument()
   })
+  it('redirects to previous page if user credentials are correct when logging in', () => {
+    renderWithRouter(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    )
+
+    const loginBtn = screen.getByRole('button', { name: /login/i })
+
+    userEvent.click(loginBtn)
+
+    const emailInput = screen.getByLabelText(/email/i)
+    const passwordInput = screen.getByLabelText(/password/i)
+    const submitBtn = screen.getByTestId('login-btn')
+
+    userEvent.type(emailInput, 'hannah@gmail.com')
+    userEvent.type(passwordInput, 'hannahIsBest')
+    userEvent.click(submitBtn)
+
+    const title = screen.getByRole('heading', { name: 'Current meetups' })
+    expect(title).toBeInTheDocument()
+  })
+  it("renders the user's name in the header when logged in", () => {
+    renderWithRouter(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    )
+
+    //Still logged in after previous test
+    // const loginBtn = screen.getByRole('button', { name: /login/i })
+
+    // userEvent.click(loginBtn)
+
+    // const emailInput = screen.getByLabelText(/email/i)
+    // const passwordInput = screen.getByLabelText(/password/i)
+    // const submitBtn = screen.getByTestId('login-btn')
+
+    // userEvent.type(emailInput, 'hannah@gmail.com')
+    // userEvent.type(passwordInput, 'hannahIsBest')
+    // userEvent.click(submitBtn)
+
+    const username = screen.getByText('Welcome, Hannah')
+    expect(username).toBeInTheDocument()
+  })
+  it('renders a log out button in the header when user is logged in', () => {
+    renderWithRouter(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    )
+    // Still logged in
+    const logoutBtn = screen.getByRole('button', { name: /log out/i })
+    expect(logoutBtn).toBeInTheDocument()
+  })
+  it('doesnt render a log in button in the header when user is logged in', () => {
+    renderWithRouter(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    )
+    // Still logged in
+    const loginBtn = screen.queryByRole('button', { name: /login/i })
+    expect(loginBtn).not.toBeInTheDocument()
+  })
+  it('renders log in button again once logged out', () => {
+    renderWithRouter(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    )
+
+    const loginBtn = screen.queryByRole('button', { name: /login/i })
+    expect(loginBtn).not.toBeInTheDocument()
+
+    const logoutBtn = screen.getByRole('button', { name: /log out/i })
+    userEvent.click(logoutBtn)
+
+    const sameLoginBtn = screen.queryByRole('button', { name: /login/i })
+    const username = screen.queryByText('Welcome, Hannah')
+
+    expect(sameLoginBtn).toBeInTheDocument()
+    expect(username).not.toBeInTheDocument()
+  })
 })

@@ -1,4 +1,3 @@
-import { getMaxListeners } from 'process'
 import { IUser, IUserPassword } from '../models/user'
 
 const users: IUserPassword[] = [
@@ -15,7 +14,7 @@ const users: IUserPassword[] = [
     name: 'Joe',
     email: 'joe@gmail.com',
     password: 'joeIsBest',
-    attending: [],
+    attending: [1],
     meetupOwner: [3, 4, 5],
   },
   {
@@ -23,7 +22,7 @@ const users: IUserPassword[] = [
     name: 'Chris',
     email: 'chris@gmail.com',
     password: 'chrisIsBest',
-    attending: [3],
+    attending: [1, 3],
     meetupOwner: [],
   },
   { id: 4, name: 'Sofie', email: 'sofie@gmail.com', password: 'sofieIsBest', attending: [], meetupOwner: [] },

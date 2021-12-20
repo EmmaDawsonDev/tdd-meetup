@@ -1,0 +1,40 @@
+.hostContainer {
+  display: flex;
+  margin: 1rem 0;
+  align-items: center;
+  gap: 1rem;
+}
+
+.hostContainer img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.column2 {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 2px solid rgb(143, 33, 125);
+  border-radius: 20px;
+}
+
+.column2 > * {
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 600px) {
+  .flexContainer {
+    display: flex;
+    gap: 3rem;
+  }
+  .column1 {
+    width: 60%;
+
+  }
+  .column2 {
+    margin-top: 0;
+    width: 40%;
+    
+  }
+
+}

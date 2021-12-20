@@ -10,6 +10,7 @@ export interface IMeetup {
   price?: number
   location: string
   attendees: string[]
+  attendeeLimit?: number
   comments: IComment[]
   rating: number[]
 }
