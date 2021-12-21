@@ -101,4 +101,13 @@ export const getAllPastMeetups = (currentDate: Date) => {
   return pastMeetups
 }
 
+export const updateMeetupAttendeeList = (id: number, attendeeName: string) => {
+  let meetup = meetups.find(meetup => meetup.id === id)
+
+  if (meetup) {
+    meetup.attendees = [...meetup.attendees, attendeeName]
+  }
+
+  return meetup
+}
 

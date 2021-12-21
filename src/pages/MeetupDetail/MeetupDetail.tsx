@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { IMeetup } from '../../models/meetup'
-import { getMeetupById } from '../../data/meetups'
+import { getMeetupById, updateMeetupAttendeeList } from '../../data/meetups'
 import { RootState } from '../../store/store'
 import { useSelector } from 'react-redux'
+
 import classes from './MeetupDetail.module.css'
 import UserCard from '../../components/UserCard/UserCard'
 
@@ -13,7 +14,9 @@ const MeetupDetail = () => {
   const [meetup, setMeetup] = useState<IMeetup>()
   const [error, setError] = useState<boolean>(false)
   const [isCurrent, setIsCurrent] = useState<boolean>(false)
+
   const { id } = useParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const meetup = getMeetupById(+id!)
@@ -37,6 +40,16 @@ const MeetupDetail = () => {
   }
 
   const maxAttendees = meetup?.attendeeLimit || Infinity
+
+  const handleLogin = () => {
+    navigate('/login')
+  }
+
+  const handleAddAttendee = () => {
+    const newMeetup = updateMeetupAttendeeList(+id!, user!.name)
+
+    newMeetup ? setMeetup({ ...newMeetup }) : setError(true)
+  }
 
   return (
     <main>
@@ -85,7 +98,10 @@ const MeetupDetail = () => {
                 <strong>Placed left: </strong>
                 {meetup.attendeeLimit ? meetup.attendeeLimit - meetup.attendees.length : 'UNLIMITED PLACES'}
               </p>
-              {user && meetup.attendees.length < maxAttendees && isCurrent && <button>Attend</button>}
+              {user && meetup.attendees.length < maxAttendees && isCurrent && <button onClick={handleAddAttendee}>Attend</button>}
+              {!user && meetup.attendees.length < maxAttendees && isCurrent && <button onClick={handleLogin}>Log in to attend</button>}
+              {meetup.attendees.length >= maxAttendees && isCurrent && <p>Meetup is fully booked</p>}
+              {!isCurrent && <p>Meetup is over</p>}
             </section>
           </div>
           <section className={classes.attendeesSection}>

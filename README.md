@@ -77,12 +77,11 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
 
 - As a logged in website user I want to be able to register myself for an event so that I can save my place
     - Attend button is visible on meetup detail page when user is logged in, meetup is current and attendee limit hasn't been reached ✅
-    - Message "Meetup is fully booked" shows instead of button if meetup is current but limit is reached
-    - Message "Meetup is over" shows instead of button if meetup has already happened 
+    - Message "Meetup is fully booked" shows instead of button if meetup is current but limit is reached ✅
+    - Message "Meetup is over" shows instead of button if meetup has already happened ✅
     - Clicking the attend button adds user to the attendees list
+    - Clicking the attend button reduces places left total by 1
     - Attendees total is increased by one
-    - Attend button is disabled if attendee limit is reached
-    - A message is also shown to the user if attendee limit is reached
     - Attend button is no longer visible once registered for event
 
 - As a logged in website user I want to be able to comment on an event so that I can ask questions to the organiser
