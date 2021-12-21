@@ -1,12 +1,6 @@
-import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import { renderWithRouter, renderWithPath } from '../../testing-utils'
+import { screen } from '@testing-library/react'
+import { renderWithPath } from '../../testing-utils'
 import MeetupDetail from './MeetupDetail'
-import { store } from '../../store/store'
-import { Provider } from 'react-redux'
-import { mount } from 'enzyme'
-import { Routes, Route } from 'react-router'
-import { MemoryRouter } from 'react-router-dom'
 
 beforeEach(() => {
   renderWithPath('/meetups/1', <MeetupDetail />, '/meetups/:id')
@@ -42,5 +36,9 @@ describe('Meetup detail unit tests', () => {
   it('displays the price', () => {
     const price = screen.getByText('Price', { exact: false })
     expect(price).toBeInTheDocument()
+  })
+  it('displays the attendees', () => {
+    const attendeesList = screen.getAllByTestId('userCard')
+    expect(attendeesList).toHaveLength(2)
   })
 })

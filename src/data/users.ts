@@ -6,7 +6,7 @@ const users: IUserPassword[] = [
     name: 'Hannah',
     email: 'hannah@gmail.com',
     password: 'hannahIsBest',
-    attending: [3, 5],
+    attending: [3, 4, 5],
     meetupOwner: [1, 2],
   },
   {
@@ -22,7 +22,7 @@ const users: IUserPassword[] = [
     name: 'Chris',
     email: 'chris@gmail.com',
     password: 'chrisIsBest',
-    attending: [1, 3],
+    attending: [1, 4, 3],
     meetupOwner: [],
   },
   { id: 4, name: 'Sofie', email: 'sofie@gmail.com', password: 'sofieIsBest', attending: [], meetupOwner: [] },

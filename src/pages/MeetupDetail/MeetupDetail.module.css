@@ -22,6 +22,20 @@
   margin-bottom: 1rem;
 }
 
+.attendeesSection {
+  margin: 2rem 0;
+}
+
+.attendeesSection h2 {
+  margin-bottom: 1rem;
+}
+
+.attendeesSection div {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
 @media (min-width: 600px) {
   .flexContainer {
     display: flex;
