@@ -14,6 +14,7 @@ const MeetupDetail = () => {
   const [meetup, setMeetup] = useState<IMeetup>()
   const [error, setError] = useState<boolean>(false)
   const [isCurrent, setIsCurrent] = useState<boolean>(false)
+  const [isAttending, setIsAttending] = useState<boolean>(false)
 
   const { id } = useParams()
   const navigate = useNavigate()
@@ -29,6 +30,13 @@ const MeetupDetail = () => {
       currentOrPast > 0 ? setIsCurrent(true) : setIsCurrent(false)
     }
   }, [id])
+
+  useEffect(() => {
+    if (meetup && user) {
+      const attending = meetup?.attendees.find(attendeeArr => attendeeArr.includes(user?.name))
+      attending ? setIsAttending(true) : setIsAttending(false)
+    }
+  }, [meetup, user])
 
   const msToTime = (start: number, end: number) => {
     let s = end - start
@@ -94,11 +102,14 @@ const MeetupDetail = () => {
                 <strong>Price: </strong>
                 {meetup.price ? `${meetup.price} SEK` : 'FREE'}
               </p>
-              <p>
-                <strong>Placed left: </strong>
+              <p data-testid="places-left">
+                <strong>Places left: </strong>
                 {meetup.attendeeLimit ? meetup.attendeeLimit - meetup.attendees.length : 'UNLIMITED PLACES'}
               </p>
-              {user && meetup.attendees.length < maxAttendees && isCurrent && <button onClick={handleAddAttendee}>Attend</button>}
+              {user && meetup.attendees.length < maxAttendees && isCurrent && !isAttending && (
+                <button onClick={handleAddAttendee}>Attend</button>
+              )}
+              {user && meetup.attendees.length < maxAttendees && isCurrent && isAttending && <p>You're going!</p>}
               {!user && meetup.attendees.length < maxAttendees && isCurrent && <button onClick={handleLogin}>Log in to attend</button>}
               {meetup.attendees.length >= maxAttendees && isCurrent && <p>Meetup is fully booked</p>}
               {!isCurrent && <p>Meetup is over</p>}

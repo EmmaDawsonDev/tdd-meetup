@@ -161,5 +161,64 @@ describe('App integration tests - registering for events', () => {
 
     const updatedAttendeeList = await screen.findAllByTestId('userCard')
     expect(updatedAttendeeList).toHaveLength(3)
+
+    const logoutBtn = screen.getByRole('button', { name: /log out/i })
+    userEvent.click(logoutBtn)
+  })
+  it('Reduces the number of places by one when someone registers to attend', () => {
+    // Login
+    const loginBtn = screen.getByRole('button', { name: /login/i })
+
+    userEvent.click(loginBtn)
+
+    const emailInput = screen.getByLabelText(/email/i)
+    const passwordInput = screen.getByLabelText(/password/i)
+    const submitBtn = screen.getByTestId('login-btn')
+
+    userEvent.type(emailInput, 'emma@gmail.com')
+    userEvent.type(passwordInput, 'emmaIsBest')
+    userEvent.click(submitBtn)
+
+    // Navigate to detail page
+    const cards = screen.getAllByTestId('currentListItem')
+    const card1 = cards[0]
+    userEvent.click(card1)
+
+    const numberOfPlaces = screen.getByTestId('places-left')
+    expect(numberOfPlaces).toContainHTML('<p data-testid="places-left"><strong>Places left: </strong>17</p>') // find a way to reset tests in between
+
+    const attendBtn = screen.getByRole('button', { name: 'Attend' })
+    userEvent.click(attendBtn)
+
+    const updatedNumberOfPlaces = screen.getByTestId('places-left')
+    expect(updatedNumberOfPlaces).toContainHTML('<p data-testid="places-left"><strong>Places left: </strong>16</p>')
+
+    const logoutBtn = screen.getByRole('button', { name: /log out/i })
+    userEvent.click(logoutBtn)
+  })
+  it("doesn't render the attend button if you already registered", () => {
+    // Login
+    const loginBtn = screen.getByRole('button', { name: /login/i })
+
+    userEvent.click(loginBtn)
+
+    const emailInput = screen.getByLabelText(/email/i)
+    const passwordInput = screen.getByLabelText(/password/i)
+    const submitBtn = screen.getByTestId('login-btn')
+
+    userEvent.type(emailInput, 'joe@gmail.com')
+    userEvent.type(passwordInput, 'joeIsBest')
+    userEvent.click(submitBtn)
+
+    // Navigate to detail page
+    const cards = screen.getAllByTestId('currentListItem')
+    const card1 = cards[0]
+    userEvent.click(card1)
+
+    const attendBtn = screen.queryByRole('button', { name: 'Attend' })
+    expect(attendBtn).not.toBeInTheDocument()
+
+    const logoutBtn = screen.getByRole('button', { name: /log out/i })
+    userEvent.click(logoutBtn)
   })
 })

@@ -26,6 +26,7 @@ const users: IUserPassword[] = [
     meetupOwner: [],
   },
   { id: 4, name: 'Sofie', email: 'sofie@gmail.com', password: 'sofieIsBest', attending: [], meetupOwner: [] },
+  { id: 5, name: 'Emma', email: 'emma@gmail.com', password: 'emmaIsBest', attending: [], meetupOwner: [] },
 ]
 
 export const validateUser = (email: string, password: string): IUser | undefined => {
