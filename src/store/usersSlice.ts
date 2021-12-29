@@ -19,8 +19,8 @@ export const userSlice = createSlice({
     logout: state => {
       state.user = undefined
     },
-    reset: state => {
-      state = initialState
+    reset: () => {
+      return initialState
     },
   },
 })

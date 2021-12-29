@@ -6,6 +6,8 @@ import { store } from '../../store/store'
 import { Provider } from 'react-redux'
 
 import userEvent from '@testing-library/user-event'
+import { reset as resetUsers } from '../../store/usersSlice'
+import { reset as resetMeetUps } from '../../store/meetupsSlice'
 
 beforeEach(() => {
   renderWithRouter(
@@ -14,6 +16,10 @@ beforeEach(() => {
     </Provider>
   )
 })
+
+// afterEach(() => {
+
+// })
 
 describe('App integration tests - registering for events', () => {
   it('doesnt render an attend button when user is logged out', () => {
@@ -185,6 +191,7 @@ describe('App integration tests - registering for events', () => {
     userEvent.click(card1)
 
     const numberOfPlaces = screen.getByTestId('places-left')
+
     expect(numberOfPlaces).toContainHTML('<p data-testid="places-left"><strong>Places left: </strong>17</p>') // find a way to reset tests in between
 
     const attendBtn = screen.getByRole('button', { name: 'Attend' })

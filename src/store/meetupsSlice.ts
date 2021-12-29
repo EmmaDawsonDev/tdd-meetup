@@ -21,10 +21,13 @@ export const meetupSlice = createSlice({
     getPastMeetups: (state, action: PayloadAction<IMeetup[]>) => {
       state.pastMeetups = [...action.payload]
     },
+    reset: () => {
+      return initialState
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { getCurrentMeetups, getPastMeetups } = meetupSlice.actions
+export const { getCurrentMeetups, getPastMeetups, reset } = meetupSlice.actions
 
 export default meetupSlice.reducer
