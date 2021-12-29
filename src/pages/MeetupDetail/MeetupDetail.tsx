@@ -33,8 +33,10 @@ const MeetupDetail = () => {
 
   useEffect(() => {
     if (meetup && user) {
-      const attending = meetup?.attendees.find(attendeeArr => attendeeArr.includes(user?.name))
+      const attending = meetup.attendees.find(attendeeArr => attendeeArr.includes(user.name))
       attending ? setIsAttending(true) : setIsAttending(false)
+    } else {
+      setIsAttending(false)
     }
   }, [meetup, user])
 

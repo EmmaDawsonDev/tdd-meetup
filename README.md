@@ -100,10 +100,10 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
 - As a logged in website user I want to be able to unregister from a meetup in case I'm no longer able to attend
     - If registered, the meetup detail page will show an unregister button
     - Clicking the button will remove the user from the list of attendees
-    - The attendee total will reduce by 1
+    - The number of places left will increase by 1
     - The attend button will show again once the user has unregistered
 
-- As a logged in website user I want to be able to see which meetups I'm registered for so that I can keep track of them
+- As a logged in website user I want to be able to see which meetups I'm registered for so that I can keep track of them (see note below row 145)
     - My meetups page shows a list of meetups the user is attending
     - My meetups page shows a list of meetups the user has attended
     - My meetups page shows a list of meetups the user is organising
@@ -141,3 +141,8 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
     - Clicking the delete button asks the owner to confirm their choice before removing the meetup from the list
 
 // Persist user data in local storage
+
+// handleAddAttendee function in MeetupDetail does not currently add the meetup id to the user's attending array. This might be needed on the profile page.
+
+
+// See note in meetupDetail integration tests line 188 - how to reset store/db to initial state in between each test?
