@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { IMeetup } from '../../models/meetup'
-import { getMeetupById, updateMeetupAttendeeList } from '../../data/meetups'
+import { IComment } from '../../models/comment'
+import { getMeetupById, updateMeetupAttendeeList, updateCommentsList } from '../../data/meetups'
 import { RootState } from '../../store/store'
 import { useSelector } from 'react-redux'
 
 import classes from './MeetupDetail.module.css'
 import UserCard from '../../components/UserCard/UserCard'
+import CommentCard from '../../components/CommentCard/CommentCard'
 
 const MeetupDetail = () => {
   const user = useSelector((state: RootState) => state.user.user)
@@ -15,6 +17,8 @@ const MeetupDetail = () => {
   const [error, setError] = useState<boolean>(false)
   const [isCurrent, setIsCurrent] = useState<boolean>(false)
   const [isAttending, setIsAttending] = useState<boolean>(false)
+  const [orderedComments, setOrderedComments] = useState<IComment[]>([])
+  const [newComment, setNewComment] = useState<string>('')
 
   const { id } = useParams()
   const navigate = useNavigate()
@@ -40,6 +44,13 @@ const MeetupDetail = () => {
     }
   }, [meetup, user])
 
+  useEffect(() => {
+    if (meetup) {
+      const orderedComments = meetup.comments.slice().sort((a, b) => +a.date - +b.date)
+      setOrderedComments(orderedComments)
+    }
+  }, [meetup])
+
   const msToTime = (start: number, end: number) => {
     let s = end - start
 
@@ -59,6 +70,17 @@ const MeetupDetail = () => {
     const newMeetup = updateMeetupAttendeeList(+id!, user!.name)
 
     newMeetup ? setMeetup({ ...newMeetup }) : setError(true)
+  }
+
+  const handleAddComment = (e: React.FormEvent) => {
+    e.preventDefault()
+    const newMeetup = updateCommentsList(+id!, { name: user!.name, date: new Date(), content: newComment })
+    if (newMeetup) {
+      setMeetup({ ...newMeetup })
+      setNewComment('')
+    } else {
+      setError(true)
+    }
   }
 
   return (
@@ -124,6 +146,25 @@ const MeetupDetail = () => {
                 <UserCard username={attendee} key={index} />
               ))}
             </div>
+          </section>
+          <section>
+            <h2>Comments</h2>
+
+            {orderedComments && orderedComments.map((comment, index) => <CommentCard key={`${comment.name}${index}`} comment={comment} />)}
+            {user && (
+              <form className={classes.commentForm} onSubmit={e => handleAddComment(e)}>
+                <label htmlFor="comments">Add a comment</label>
+                <textarea
+                  name="comments"
+                  id="comments"
+                  cols={30}
+                  rows={5}
+                  value={newComment}
+                  onChange={e => setNewComment(e.target.value)}
+                ></textarea>
+                <button>Add</button>
+              </form>
+            )}
           </section>
         </div>
       )}

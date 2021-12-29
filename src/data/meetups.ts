@@ -1,3 +1,4 @@
+import { IComment } from '../models/comment'
 import { IMeetup } from '../models/meetup'
 
 const meetups: IMeetup[] = [
@@ -42,8 +43,8 @@ const meetups: IMeetup[] = [
     attendees: ['Hannah', 'Chris'],
     attendeeLimit: 15,
     comments: [
-      { name: 'Hannah', date: new Date('2001-12-06T11:00:00'), content: 'How warm is the water?' },
-      { name: 'Joe', date: new Date('2001-12-06T11:21:03'), content: "It's about 30 degrees" },
+      { name: 'Joe', date: new Date('2021-12-06T11:21:03'), content: "It's about 30 degrees" },
+      { name: 'Hannah', date: new Date('2021-12-06T11:00:00'), content: 'How warm is the water?' },
     ],
     rating: [],
   },
@@ -113,6 +114,18 @@ export const updateMeetupAttendeeList = (id: number, attendeeName: string) => {
   } else {
     return undefined
   }
-
 }
 
+export const updateCommentsList = (id: number, comment: IComment) => {
+  let meetupIndex = meetups.findIndex(meetup => meetup.id === id)
+  let meetup = meetups.find(meetup => meetup.id === id)
+
+  if (meetup) {
+    let newMeetup = { ...meetup }
+    newMeetup.comments = [...newMeetup.comments, comment]
+    meetups[meetupIndex] = newMeetup
+    return newMeetup
+  } else {
+    return undefined
+  }
+}

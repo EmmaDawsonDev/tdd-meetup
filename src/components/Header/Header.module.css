@@ -7,6 +7,15 @@
   justify-content: space-between;
 }
 
+.header a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.header a:visited {
+  color: #fff;
+}
+
 .header button {
   background-color: #fff;
   border: none;

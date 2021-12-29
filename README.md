@@ -84,12 +84,14 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
     - Attend button is no longer visible once registered for event ✅
 
 - As a logged in website user I want to be able to comment on an event so that I can ask questions to the organiser
-    - Renders an empty text area with placeholder Add a comment...
-    - Renders an Add comment button
-    - When clicking the button the comment is added to the bottom of the comments list
-    - Renders a list of comment cards
-    - Comment cards are shown in chronological order (most recent last)
-    - Comment cards show date, time, username and comment
+    - Renders no comment box when user is logged out ✅
+    - renders no add button when user is logged out ✅
+    - Renders an empty text area with label Add a comment when user is logged in ✅
+    - Renders an Add comment button when user is logged in ✅
+    - When clicking the button the comment is added to the bottom of the comments list ✅
+    - Renders a list of comment cards ✅
+    - Comment cards are shown in chronological order (most recent last) ✅
+    - Comment cards show date, time, username and comment ✅
 
 - As a logged in website user I want to be able to rate a past meetup so that I can give feedback to the organiser and other attendees
     - If meetup has past then detail page shows a ratings scale input from 1 - 5

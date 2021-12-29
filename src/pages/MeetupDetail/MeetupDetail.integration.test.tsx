@@ -228,4 +228,141 @@ describe('App integration tests - registering for events', () => {
     const logoutBtn = screen.getByRole('button', { name: /log out/i })
     userEvent.click(logoutBtn)
   })
+  it('renders an empty comment input once logged in', () => {
+    // Login
+    const loginBtn = screen.getByRole('button', { name: /login/i })
+
+    userEvent.click(loginBtn)
+
+    const emailInput = screen.getByLabelText(/email/i)
+    const passwordInput = screen.getByLabelText(/password/i)
+    const submitBtn = screen.getByTestId('login-btn')
+
+    userEvent.type(emailInput, 'joe@gmail.com')
+    userEvent.type(passwordInput, 'joeIsBest')
+    userEvent.click(submitBtn)
+
+    // Navigate to detail page
+    const cards = screen.getAllByTestId('currentListItem')
+    const card1 = cards[0]
+    userEvent.click(card1)
+
+    const commentInput = screen.queryByLabelText('Add a comment')
+
+    expect(commentInput).toBeInTheDocument()
+
+    const logoutBtn = screen.getByRole('button', { name: /log out/i })
+    userEvent.click(logoutBtn)
+  })
+  it('renders an add comment button once logged in', () => {
+    // Login
+    const loginBtn = screen.getByRole('button', { name: /login/i })
+
+    userEvent.click(loginBtn)
+
+    const emailInput = screen.getByLabelText(/email/i)
+    const passwordInput = screen.getByLabelText(/password/i)
+    const submitBtn = screen.getByTestId('login-btn')
+
+    userEvent.type(emailInput, 'joe@gmail.com')
+    userEvent.type(passwordInput, 'joeIsBest')
+    userEvent.click(submitBtn)
+
+    // Navigate to detail page
+    const cards = screen.getAllByTestId('currentListItem')
+    const card1 = cards[0]
+    userEvent.click(card1)
+
+    const addCommentBtn = screen.queryByRole('button', { name: 'Add' })
+    expect(addCommentBtn).toBeInTheDocument()
+
+    const logoutBtn = screen.getByRole('button', { name: /log out/i })
+    userEvent.click(logoutBtn)
+  })
+  it('renders 2 comments initially for swim meetup', () => {
+    const cards = screen.getAllByTestId('pastListItem')
+    const card2 = cards[1]
+    userEvent.click(card2)
+
+    const commentsList = screen.queryAllByTestId('commentListItem')
+    expect(commentsList).toHaveLength(2)
+  })
+  it('renders comments in chronological order (oldest first)', () => {
+    const cards = screen.getAllByTestId('pastListItem')
+    const card2 = cards[1]
+    userEvent.click(card2)
+
+    const commentsList = screen.queryAllByTestId('commentListItem')
+    expect(commentsList[0]).toHaveTextContent('11:00')
+    expect(commentsList[1]).toHaveTextContent('11:21')
+  })
+  it('adds a new comment to the list when add comment button is pressed', () => {
+    // Login
+    const loginBtn = screen.getByRole('button', { name: /login/i })
+
+    userEvent.click(loginBtn)
+
+    const emailInput = screen.getByLabelText(/email/i)
+    const passwordInput = screen.getByLabelText(/password/i)
+    const submitBtn = screen.getByTestId('login-btn')
+
+    userEvent.type(emailInput, 'joe@gmail.com')
+    userEvent.type(passwordInput, 'joeIsBest')
+    userEvent.click(submitBtn)
+
+    // Navigate to detail page
+    const cards = screen.getAllByTestId('currentListItem')
+    const card1 = cards[0]
+    userEvent.click(card1)
+
+    const commentsList = screen.queryAllByTestId('commentListItem')
+    expect(commentsList).toHaveLength(0)
+
+    const commentInput = screen.getByLabelText('Add a comment')
+    const addCommentBtn = screen.getByRole('button', { name: 'Add' })
+    userEvent.type(commentInput, 'This is a test')
+    userEvent.click(addCommentBtn)
+
+    const updatedCommentsList = screen.queryAllByTestId('commentListItem')
+    expect(updatedCommentsList).toHaveLength(1)
+
+    const logoutBtn = screen.getByRole('button', { name: /log out/i })
+    userEvent.click(logoutBtn)
+  })
+  it('adds a new comment to the bottom of the list (chronological order)', () => {
+    // Login
+    const loginBtn = screen.getByRole('button', { name: /login/i })
+
+    userEvent.click(loginBtn)
+
+    const emailInput = screen.getByLabelText(/email/i)
+    const passwordInput = screen.getByLabelText(/password/i)
+    const submitBtn = screen.getByTestId('login-btn')
+
+    userEvent.type(emailInput, 'joe@gmail.com')
+    userEvent.type(passwordInput, 'joeIsBest')
+    userEvent.click(submitBtn)
+
+    // Navigate to detail page
+    const cards = screen.getAllByTestId('pastListItem')
+    const card2 = cards[1]
+    userEvent.click(card2)
+
+    const commentsList = screen.queryAllByTestId('commentListItem')
+    expect(commentsList).toHaveLength(2)
+
+    const commentInput = screen.getByLabelText('Add a comment')
+    const addCommentBtn = screen.getByRole('button', { name: 'Add' })
+    userEvent.type(commentInput, 'This is a test')
+    userEvent.click(addCommentBtn)
+
+    const updatedCommentsList = screen.queryAllByTestId('commentListItem')
+    expect(updatedCommentsList).toHaveLength(3)
+    expect(updatedCommentsList[0]).toHaveTextContent('11:00')
+    expect(updatedCommentsList[1]).toHaveTextContent('11:21')
+    expect(updatedCommentsList[2]).toHaveTextContent('This is a test')
+
+    const logoutBtn = screen.getByRole('button', { name: /log out/i })
+    userEvent.click(logoutBtn)
+  })
 })

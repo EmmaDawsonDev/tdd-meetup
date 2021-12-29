@@ -41,4 +41,17 @@ describe('Meetup detail unit tests', () => {
     const attendeesList = screen.getAllByTestId('userCard')
     expect(attendeesList).toHaveLength(2)
   })
+  it('doesnt render a text area input for comments if user is logged out', () => {
+    const commentInput = screen.queryByLabelText('Add a comment')
+    expect(commentInput).not.toBeInTheDocument()
+  })
+  it('doesnt render an add comment button if user is logged out', () => {
+    const addCommentButton = screen.queryByRole('button', { name: 'Add' })
+    expect(addCommentButton).not.toBeInTheDocument()
+  })
+  it('renders a list of empty comments initially for meetup with id 1', () => {
+    const commentsList = screen.queryAllByTestId('commentListItem')
+    expect(commentsList).toHaveLength(0)
+  })
+  
 })
