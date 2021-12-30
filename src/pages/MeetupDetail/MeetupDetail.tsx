@@ -166,6 +166,13 @@ const MeetupDetail = () => {
               </form>
             )}
           </section>
+          {!isCurrent && (
+            <section data-testid="rating">
+              <h2>Rating</h2>
+              {meetup.rating.length > 0 && <p>{meetup.rating.reduce((a, b) => a + b) / meetup.rating.length} / 5</p>}
+              {meetup.rating.length === 0 && <p>No ratings yet</p>}
+            </section>
+          )}
         </div>
       )}
       {!meetup && error && <h2>Something went wrong.</h2>}

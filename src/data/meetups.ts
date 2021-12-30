@@ -46,7 +46,7 @@ const meetups: IMeetup[] = [
       { name: 'Joe', date: new Date('2021-12-06T11:21:03'), content: "It's about 30 degrees" },
       { name: 'Hannah', date: new Date('2021-12-06T11:00:00'), content: 'How warm is the water?' },
     ],
-    rating: [],
+    rating: [4, 5],
   },
   {
     id: 4,
