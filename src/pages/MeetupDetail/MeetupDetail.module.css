@@ -14,7 +14,7 @@
 .column2 {
   margin-top: 2rem;
   padding: 1rem;
-  border: 2px solid rgb(143, 33, 125);
+  border: 2px solid #155E75;
   border-radius: 20px;
 }
 
@@ -46,7 +46,7 @@
 textarea {
   border-radius: 20px;
   background-color: rgb(245, 245, 245);
-  border: 2px solid rgb(143, 33, 125);  
+  border: 2px solid #155E75;  
   padding: 1rem;
 }
 

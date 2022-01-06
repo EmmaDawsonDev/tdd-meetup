@@ -1,12 +1,12 @@
 .cardWrapperCurrent {
   width: 100%;
-  border: 2px solid rgb(143, 33, 125);
+  border: 2px solid #155E75;
   border-radius: 10px;
   padding: 1rem;
 }
 
 .cardWrapperCurrent h3 {
-  color: rgb(143, 33, 125);
+  color: #155E75;
 }
 
 .cardWrapperPast {
