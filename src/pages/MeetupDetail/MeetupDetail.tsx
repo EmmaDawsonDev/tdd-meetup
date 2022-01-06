@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { IMeetup } from '../../models/meetup'
 import { IComment } from '../../models/comment'
-import { getMeetupById, updateMeetupAttendeeList, updateCommentsList, updateRating } from '../../data/meetups'
+import { getMeetupById, updateMeetupAttendeeList, updateCommentsList, updateRating, deleteAttendee } from '../../data/meetups'
 import { RootState } from '../../store/store'
 import { useSelector } from 'react-redux'
 
@@ -89,6 +89,12 @@ const MeetupDetail = () => {
     updatedMeetup ? setMeetup({ ...updatedMeetup }) : setError(true)
   }
 
+  const handleUnregister = () => {
+    const updatedMeetup = deleteAttendee(+id!, user!.name)
+
+    updatedMeetup ? setMeetup({ ...updatedMeetup }) : setError(true)
+  }
+
   return (
     <main>
       {meetup && (
@@ -139,7 +145,12 @@ const MeetupDetail = () => {
               {user && meetup.attendees.length < maxAttendees && isCurrent && !isAttending && (
                 <button onClick={handleAddAttendee}>Attend</button>
               )}
-              {user && meetup.attendees.length < maxAttendees && isCurrent && isAttending && <p>You're going!</p>}
+              {user && meetup.attendees.length < maxAttendees && isCurrent && isAttending && (
+                <div>
+                  <p>You're going!</p>
+                  <button onClick={handleUnregister}>Unregister</button>
+                </div>
+              )}
               {!user && meetup.attendees.length < maxAttendees && isCurrent && <button onClick={handleLogin}>Log in to attend</button>}
               {meetup.attendees.length >= maxAttendees && isCurrent && <p>Meetup is fully booked</p>}
               {!isCurrent && <p>Meetup is over</p>}

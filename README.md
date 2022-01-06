@@ -102,12 +102,13 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
     - The rating updates when a new rating is added ✅
 
 - As a logged in website user I want to be able to unregister from a meetup in case I'm no longer able to attend
-    - If registered, the meetup detail page will show an unregister button
-    - Clicking the button will remove the user from the list of attendees
-    - The number of places left will increase by 1
-    - The attend button will show again once the user has unregistered
+    - If registered, the meetup detail page will show an unregister button ✅
+    - Clicking the button will remove the user from the list of attendees ✅
+    - The number of places left will increase by 1 ✅
+    - The attend button will show again once the user has unregistered ✅
 
 - As a logged in website user I want to be able to see which meetups I'm registered for so that I can keep track of them (see note below row 145)
+    - There is a button to my meetups page in the header ✅
     - My meetups page shows a list of meetups the user is attending
     - My meetups page shows a list of meetups the user has attended
     - My meetups page shows a list of meetups the user is organising
@@ -150,3 +151,5 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
 
 
 // See note in meetupDetail integration tests line 188 - how to reset store/db to initial state in between each test?
+// meetup detail integration 522 & 525 - will change if store resets between each test
+// 543 - emma is not registered to attend if store gets reset in between, change to joe instead.

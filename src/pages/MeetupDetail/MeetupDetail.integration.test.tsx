@@ -460,7 +460,7 @@ describe('App integration tests - registering for events', () => {
     const card1 = cards[0]
     userEvent.click(card1)
 
-    // Find button
+    // Find button add add rating
 
     const ratingInput = screen.queryAllByTestId('star-rating')
     userEvent.click(ratingInput[4])
@@ -470,6 +470,99 @@ describe('App integration tests - registering for events', () => {
 
     const rating = screen.getByText('5 / 5')
     expect(rating).toBeInTheDocument()
+
+    const logoutBtn = screen.getByRole('button', { name: /log out/i })
+    userEvent.click(logoutBtn)
+  })
+  it('renders an unregister button if user is already registered to attend meetup', () => {
+    // Login
+    const loginBtn = screen.getByRole('button', { name: /login/i })
+
+    userEvent.click(loginBtn)
+
+    const emailInput = screen.getByLabelText(/email/i)
+    const passwordInput = screen.getByLabelText(/password/i)
+    const submitBtn = screen.getByTestId('login-btn')
+
+    userEvent.type(emailInput, 'joe@gmail.com')
+    userEvent.type(passwordInput, 'joeIsBest')
+    userEvent.click(submitBtn)
+
+    // Navigate to detail page
+    const cards = screen.getAllByTestId('currentListItem')
+    const card1 = cards[0]
+    userEvent.click(card1)
+
+    const unregisterBtn = screen.queryByRole('button', { name: 'Unregister' })
+    expect(unregisterBtn).toBeInTheDocument()
+
+    const logoutBtn = screen.getByRole('button', { name: /log out/i })
+    userEvent.click(logoutBtn)
+  })
+  it('removes attendee from list when clicking unregister', () => {
+    // Login
+    const loginBtn = screen.getByRole('button', { name: /login/i })
+
+    userEvent.click(loginBtn)
+
+    const emailInput = screen.getByLabelText(/email/i)
+    const passwordInput = screen.getByLabelText(/password/i)
+    const submitBtn = screen.getByTestId('login-btn')
+
+    userEvent.type(emailInput, 'joe@gmail.com')
+    userEvent.type(passwordInput, 'joeIsBest')
+    userEvent.click(submitBtn)
+
+    // Navigate to detail page
+    const cards = screen.getAllByTestId('currentListItem')
+    const card1 = cards[0]
+    userEvent.click(card1)
+
+    const userCards = screen.getAllByTestId('userCard')
+    expect(userCards).toHaveLength(4)
+
+    const numPlacesLeft = screen.getByTestId('places-left')
+    expect(numPlacesLeft).toContainHTML('<p data-testid="places-left"><strong>Places left: </strong>16</p>')
+
+    const unregisterBtn = screen.getByRole('button', { name: 'Unregister' })
+    userEvent.click(unregisterBtn)
+
+    const updatedUserCards = screen.getAllByTestId('userCard')
+    expect(updatedUserCards).toHaveLength(3)
+
+    const updatedNumPlacesLeft = screen.getByTestId('places-left')
+    expect(updatedNumPlacesLeft).toContainHTML('<p data-testid="places-left"><strong>Places left: </strong>17</p>')
+
+    const logoutBtn = screen.getByRole('button', { name: /log out/i })
+    userEvent.click(logoutBtn)
+  })
+  it('shows the attend button again when clicking unregister', () => {
+    // Login
+    const loginBtn = screen.getByRole('button', { name: /login/i })
+
+    userEvent.click(loginBtn)
+
+    const emailInput = screen.getByLabelText(/email/i)
+    const passwordInput = screen.getByLabelText(/password/i)
+    const submitBtn = screen.getByTestId('login-btn')
+
+    userEvent.type(emailInput, 'emma@gmail.com')
+    userEvent.type(passwordInput, 'emmaIsBest')
+    userEvent.click(submitBtn)
+
+    // Navigate to detail page
+    const cards = screen.getAllByTestId('currentListItem')
+    const card1 = cards[0]
+    userEvent.click(card1)
+
+    const attendBtn = screen.queryByRole('button', { name: 'Attend' })
+    expect(attendBtn).not.toBeInTheDocument()
+
+    const unregisterBtn = screen.getByRole('button', { name: 'Unregister' })
+    userEvent.click(unregisterBtn)
+
+    const newAttendBtn = screen.queryByRole('button', { name: 'Attend' })
+    expect(newAttendBtn).toBeInTheDocument()
 
     const logoutBtn = screen.getByRole('button', { name: /log out/i })
     userEvent.click(logoutBtn)

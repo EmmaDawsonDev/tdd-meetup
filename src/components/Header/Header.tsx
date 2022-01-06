@@ -24,10 +24,11 @@ const Header = () => {
       </Link>
       {!user && !match && <button onClick={() => navigate('/login')}>Login</button>}
       {user && (
-        <div>
+        <nav className={classes.navContainer}>
           <p>Welcome, {user.name}</p>
+          <Link to="/profile">My Profile</Link>
           <button onClick={handleLogout}>Log out</button>
-        </div>
+        </nav>
       )}
     </header>
   )

@@ -145,6 +145,25 @@ describe('App integration test - login and logout flows', () => {
     expect(stillSameLoginBtn).toBeInTheDocument()
     expect(username).not.toBeInTheDocument()
   })
+  it('renders my profile link in header when logged in', () => {
+    const myProfileLink = screen.queryByRole('link', { name: 'My profile' })
+    expect(myProfileLink).not.toBeInTheDocument()
+
+    const loginBtn = screen.getByRole('button', { name: /login/i })
+
+    userEvent.click(loginBtn)
+
+    const emailInput = screen.getByLabelText(/email/i)
+    const passwordInput = screen.getByLabelText(/password/i)
+    const submitBtn = screen.getByTestId('login-btn')
+
+    userEvent.type(emailInput, 'hannah@gmail.com')
+    userEvent.type(passwordInput, 'hannahIsBest')
+    userEvent.click(submitBtn)
+
+    const newMyProfileLink = screen.queryByRole('link', { name: 'My Profile' })
+    expect(newMyProfileLink).toBeInTheDocument()
+  })
 })
 
 

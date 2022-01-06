@@ -143,3 +143,19 @@ export const updateRating = (id: number, rating: number) => {
     return undefined
   }
 }
+
+export const deleteAttendee = (id: number, attendeeName: string) => {
+  let meetupIndex = meetups.findIndex(meetup => meetup.id === id)
+  let meetup = meetups.find(meetup => meetup.id === id)
+
+  if (meetup) {
+    let newMeetup = { ...meetup }
+    let filteredAttendees = newMeetup.attendees.filter(name => name !== attendeeName)
+    newMeetup.attendees = [...filteredAttendees]
+    meetups[meetupIndex] = newMeetup
+    return newMeetup
+  } else {
+    return undefined
+  }
+}
+
