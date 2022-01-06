@@ -63,32 +63,39 @@ describe('Meetup detail unit tests', () => {
   it('renders a list of empty comments initially for meetup with id 1', () => {
     renderWithPath('/meetups/1', <MeetupDetail />, '/meetups/:id')
     const commentsList = screen.queryAllByTestId('commentListItem')
+    const commentsMessage = screen.getByText('No comments yet')
     expect(commentsList).toHaveLength(0)
+    expect(commentsMessage).toBeInTheDocument()
   })
   it('renders a list of 2 comments initially for meetup with id 3', () => {
     renderWithPath('/meetups/3', <MeetupDetail />, '/meetups/:id')
     const commentsList = screen.queryAllByTestId('commentListItem')
     expect(commentsList).toHaveLength(2)
   })
-  it("does not render a rating for future meetups", () => {
+  it('does not render a rating for future meetups', () => {
     renderWithPath('/meetups/1', <MeetupDetail />, '/meetups/:id')
-    const ratingContainer = screen.queryByTestId("rating")
+    const ratingContainer = screen.queryByTestId('rating')
     expect(ratingContainer).not.toBeInTheDocument()
   })
-  it("renders a rating for past meetups", () => {
+  it('renders a rating for past meetups', () => {
     renderWithPath('/meetups/3', <MeetupDetail />, '/meetups/:id')
-    const ratingContainer = screen.queryByTestId("rating")
+    const ratingContainer = screen.queryByTestId('rating')
     expect(ratingContainer).toBeInTheDocument()
   })
-  it("renders a rating of 4.5 for  meetup with id 3", () => {
+  it('renders a rating of 4.5 for  meetup with id 3', () => {
     renderWithPath('/meetups/3', <MeetupDetail />, '/meetups/:id')
-    const rating = screen.getByText("4.5 / 5")
+    const rating = screen.getByText('4.5 / 5')
     expect(rating).toBeInTheDocument()
   })
-  it("renders a no ratings yet message for  meetup with id 5", () => {
+  it('renders a no ratings yet message for  meetup with id 5', () => {
     renderWithPath('/meetups/5', <MeetupDetail />, '/meetups/:id')
-    const ratingMessage = screen.getByText("No ratings yet")
+    const ratingMessage = screen.getByText('No ratings yet')
     expect(ratingMessage).toBeInTheDocument()
+  })
+  it('does not render ratings input when user is logged out', () => {
+    renderWithPath('/meetups/3', <MeetupDetail />, '/meetups/:id')
+    const ratingInput = screen.queryAllByTestId('star-rating')
+    expect(ratingInput).toHaveLength(0)
   })
   
 })

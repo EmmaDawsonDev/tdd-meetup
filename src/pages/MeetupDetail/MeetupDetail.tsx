@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { IMeetup } from '../../models/meetup'
 import { IComment } from '../../models/comment'
-import { getMeetupById, updateMeetupAttendeeList, updateCommentsList } from '../../data/meetups'
+import { getMeetupById, updateMeetupAttendeeList, updateCommentsList, updateRating } from '../../data/meetups'
 import { RootState } from '../../store/store'
 import { useSelector } from 'react-redux'
 
 import classes from './MeetupDetail.module.css'
 import UserCard from '../../components/UserCard/UserCard'
 import CommentCard from '../../components/CommentCard/CommentCard'
+import Rating from '../../components/Rating/Rating'
 
 const MeetupDetail = () => {
   const user = useSelector((state: RootState) => state.user.user)
@@ -67,20 +68,25 @@ const MeetupDetail = () => {
   }
 
   const handleAddAttendee = () => {
-    const newMeetup = updateMeetupAttendeeList(+id!, user!.name)
+    const updatedMeetup = updateMeetupAttendeeList(+id!, user!.name)
 
-    newMeetup ? setMeetup({ ...newMeetup }) : setError(true)
+    updatedMeetup ? setMeetup({ ...updatedMeetup }) : setError(true)
   }
 
   const handleAddComment = (e: React.FormEvent) => {
     e.preventDefault()
-    const newMeetup = updateCommentsList(+id!, { name: user!.name, date: new Date(), content: newComment })
-    if (newMeetup) {
-      setMeetup({ ...newMeetup })
+    const updatedMeetup = updateCommentsList(+id!, { name: user!.name, date: new Date(), content: newComment })
+    if (updatedMeetup) {
+      setMeetup({ ...updatedMeetup })
       setNewComment('')
     } else {
       setError(true)
     }
+  }
+
+  const handleAddRating = (rating: number) => {
+    const updatedMeetup = updateRating(+id!, rating)
+    updatedMeetup ? setMeetup({ ...updatedMeetup }) : setError(true)
   }
 
   return (
@@ -149,7 +155,7 @@ const MeetupDetail = () => {
           </section>
           <section>
             <h2>Comments</h2>
-
+            {orderedComments.length === 0 && <p>No comments yet</p>}
             {orderedComments && orderedComments.map((comment, index) => <CommentCard key={`${comment.name}${index}`} comment={comment} />)}
             {user && (
               <form className={classes.commentForm} onSubmit={e => handleAddComment(e)}>
@@ -171,6 +177,7 @@ const MeetupDetail = () => {
               <h2>Rating</h2>
               {meetup.rating.length > 0 && <p>{meetup.rating.reduce((a, b) => a + b) / meetup.rating.length} / 5</p>}
               {meetup.rating.length === 0 && <p>No ratings yet</p>}
+              {user && isAttending && <Rating handleRating={handleAddRating} />}
             </section>
           )}
         </div>

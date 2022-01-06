@@ -129,3 +129,17 @@ export const updateCommentsList = (id: number, comment: IComment) => {
     return undefined
   }
 }
+
+export const updateRating = (id: number, rating: number) => {
+  let meetupIndex = meetups.findIndex(meetup => meetup.id === id)
+  let meetup = meetups.find(meetup => meetup.id === id)
+
+  if (meetup) {
+    let newMeetup = { ...meetup }
+    newMeetup.rating = [...newMeetup.rating, rating]
+    meetups[meetupIndex] = newMeetup
+    return newMeetup
+  } else {
+    return undefined
+  }
+}

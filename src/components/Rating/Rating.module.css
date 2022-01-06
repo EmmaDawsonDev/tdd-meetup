@@ -1,0 +1,92 @@
+.ratingStars {
+  position: relative;
+  height: 3rem;
+  width: 15rem;
+  background: url(./star-nofill.svg);
+  background-size: 3rem 3rem;
+  margin: 1rem 0;
+}
+
+.ratingLabel {
+  position: absolute;
+  height: 100%;
+  background-size: 3rem 3rem;
+}
+
+.ratingInput {
+  margin: 0;
+  position: absolute;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.ratingStars .ratingLabel:nth-of-type(1) {
+  z-index: 5;
+  width: 20%;
+}
+
+.ratingStars .ratingLabel:nth-of-type(1):hover:after {
+  content: "Awful";
+  
+}
+
+.ratingStars .ratingLabel:nth-of-type(2) {
+  z-index: 4;
+  width: 40%;
+}
+
+.ratingStars .ratingLabel:nth-of-type(2):hover:after {
+  content: "Not good";
+}
+
+.ratingStars .ratingLabel:nth-of-type(3) {
+  z-index: 3;
+  width: 60%;
+}
+
+.ratingStars .ratingLabel:nth-of-type(3):hover:after {
+  content: "OK";
+}
+
+.ratingStars .ratingLabel:nth-of-type(4) {
+  z-index: 2;
+  width: 80%;
+}
+.ratingStars .ratingLabel:nth-of-type(4):hover:after {
+  content: "Good";
+}
+
+.ratingStars .ratingLabel:nth-of-type(5) {
+  z-index: 1;
+  width: 100%;
+}
+
+.ratingStars .ratingLabel:nth-of-type(5):hover:after {
+  content: "Excellent";
+}
+
+.ratingStars .ratingLabel:hover:after {
+  font-size: 0.7rem;
+  position: absolute;
+  right: 0;
+}
+
+.ratingInput:checked + .ratingLabel,
+.ratingInput:focus + .ratingLabel,
+.ratingLabel:hover {
+  background-image: url(./star-fill.svg);
+}
+
+.ratingLabel:hover ~ .ratingLabel {
+  background-image: url(./star-nofill.svg);
+}
+
+.ratingInput:focus ~ .ratingFocus {
+  position: absolute;
+  top: -.25em;
+  right: -.25em;  
+  bottom: -.25em;
+  left: -.25em;
+  outline: 0.25rem solid lightblue;
+}

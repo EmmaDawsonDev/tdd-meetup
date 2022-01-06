@@ -92,13 +92,14 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
     - Renders a list of comment cards ✅
     - Comment cards are shown in chronological order (most recent last) ✅
     - Comment cards show date, time, username and comment ✅
+    - Renders a no comments yet message when there are no comments 
 
 - As a logged in website user I want to be able to rate a past meetup so that I can give feedback to the organiser and other attendees
     - If meetup has past a rating is shown to everyone or "no rating" message is no ratings have been made ✅
-    - If meetup has past and user attended then detail page shows a ratings scale input from 1 - 5
-    - It explains what 1 and 5 mean
-    - The ratings scale also renders an add rating button
-    - The rating average is calculated and shown on screen
+    - If meetup has past and user attended then detail page shows a ratings scale input from 1 - 5 ✅
+    - The ratings scale also renders an add rating button ✅
+    - The rating average is calculated and shown on screen ✅
+    - The rating updates when a new rating is added ✅
 
 - As a logged in website user I want to be able to unregister from a meetup in case I'm no longer able to attend
     - If registered, the meetup detail page will show an unregister button

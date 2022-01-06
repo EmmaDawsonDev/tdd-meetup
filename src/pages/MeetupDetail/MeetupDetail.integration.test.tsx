@@ -365,4 +365,115 @@ describe('App integration tests - registering for events', () => {
     const logoutBtn = screen.getByRole('button', { name: /log out/i })
     userEvent.click(logoutBtn)
   })
+  it('renders a ratings bar when user is logged in and attended a past meetup', () => {
+    // Login
+    const loginBtn = screen.getByRole('button', { name: /login/i })
+
+    userEvent.click(loginBtn)
+
+    const emailInput = screen.getByLabelText(/email/i)
+    const passwordInput = screen.getByLabelText(/password/i)
+    const submitBtn = screen.getByTestId('login-btn')
+
+    userEvent.type(emailInput, 'hannah@gmail.com')
+    userEvent.type(passwordInput, 'hannahIsBest')
+    userEvent.click(submitBtn)
+
+    // Navigate to detail page
+    const cards = screen.getAllByTestId('pastListItem')
+    const card1 = cards[0]
+    userEvent.click(card1)
+
+    const ratingInput = screen.queryAllByTestId('star-rating')
+    expect(ratingInput).toHaveLength(5)
+
+    const logoutBtn = screen.getByRole('button', { name: /log out/i })
+    userEvent.click(logoutBtn)
+  })
+  it('doesnt render a ratings bar when user is logged in but did not attend a past meetup', () => {
+    // Login
+    const loginBtn = screen.getByRole('button', { name: /login/i })
+
+    userEvent.click(loginBtn)
+
+    const emailInput = screen.getByLabelText(/email/i)
+    const passwordInput = screen.getByLabelText(/password/i)
+    const submitBtn = screen.getByTestId('login-btn')
+
+    userEvent.type(emailInput, 'sofie@gmail.com')
+    userEvent.type(passwordInput, 'sofieIsBest')
+    userEvent.click(submitBtn)
+
+    // Navigate to detail page
+    const cards = screen.getAllByTestId('pastListItem')
+    const card1 = cards[0]
+    userEvent.click(card1)
+
+    const ratingInput = screen.queryAllByTestId('star-rating')
+    expect(ratingInput).toHaveLength(0)
+
+    const logoutBtn = screen.getByRole('button', { name: /log out/i })
+    userEvent.click(logoutBtn)
+  })
+  it('renders an add rating button when logged in and user attended meetup', () => {
+    // Login
+    const loginBtn = screen.getByRole('button', { name: /login/i })
+
+    userEvent.click(loginBtn)
+
+    const emailInput = screen.getByLabelText(/email/i)
+    const passwordInput = screen.getByLabelText(/password/i)
+    const submitBtn = screen.getByTestId('login-btn')
+
+    userEvent.type(emailInput, 'hannah@gmail.com')
+    userEvent.type(passwordInput, 'hannahIsBest')
+    userEvent.click(submitBtn)
+
+    // Navigate to detail page
+    const cards = screen.getAllByTestId('pastListItem')
+    const card1 = cards[0]
+    userEvent.click(card1)
+
+    // Find button
+    const addRatingBtn = screen.getByRole('button', { name: 'Add rating' })
+    expect(addRatingBtn).toBeInTheDocument()
+
+    const logoutBtn = screen.getByRole('button', { name: /log out/i })
+    userEvent.click(logoutBtn)
+  })
+  it('updates the rating when a new rating is submitted', () => {
+    // Login
+    const loginBtn = screen.getByRole('button', { name: /login/i })
+
+    userEvent.click(loginBtn)
+
+    const emailInput = screen.getByLabelText(/email/i)
+    const passwordInput = screen.getByLabelText(/password/i)
+    const submitBtn = screen.getByTestId('login-btn')
+
+    userEvent.type(emailInput, 'hannah@gmail.com')
+    userEvent.type(passwordInput, 'hannahIsBest')
+    userEvent.click(submitBtn)
+
+    // Navigate to detail page
+    const cards = screen.getAllByTestId('pastListItem')
+    const card1 = cards[0]
+    userEvent.click(card1)
+
+    // Find button
+
+    const ratingInput = screen.queryAllByTestId('star-rating')
+    userEvent.click(ratingInput[4])
+
+    const addRatingBtn = screen.getByRole('button', { name: 'Add rating' })
+    userEvent.click(addRatingBtn)
+
+    const rating = screen.getByText('5 / 5')
+    expect(rating).toBeInTheDocument()
+
+    const logoutBtn = screen.getByRole('button', { name: /log out/i })
+    userEvent.click(logoutBtn)
+  })
 })
+
+
