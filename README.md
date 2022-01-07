@@ -119,9 +119,9 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
     - The log in button should show in the header once logged out. ✅
 
 - As a meetup organiser I want to be able to publish a meetup event so that I can share it with users of the site
-    - Once logged in an Add meetup button should render on the main page
-    - Clicking the button should take me to an add meetup page with a form to add all the details
-    - Required fields should be clearly marked
+    - Once logged in an Add meetup button should render on the main page ✅
+    - Clicking the button should take me to an add meetup page with a form to add all the details ✅
+    - It shows an add meetup button
     - Submitting the form should validate the input to make sure all fields are filled in and the meetup date is in the future
     - Once validated, the meetup should be added to the list of meetups and be visible for everyone
     - It should also appear in the correct position in the list according to its date/time when rendered on the screen
@@ -153,3 +153,5 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
 // See note in meetupDetail integration tests line 188 - how to reset store/db to initial state in between each test?
 // meetup detail integration 522 & 525 - will change if store resets between each test
 // 543 - emma is not registered to attend if store gets reset in between, change to joe instead.
+
+// Clean up unused imports

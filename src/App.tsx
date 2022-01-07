@@ -9,6 +9,7 @@ import Home from './pages/Home/Home'
 import MeetupDetail from './pages/MeetupDetail/MeetupDetail'
 import Login from './pages/Login/Login'
 import Profile from './pages/Profile/Profile'
+import AddMeetup from './pages/AddMeetup/AddMeetup'
 
 function App() {
   const user = useSelector((state: RootState) => state.user.user)
@@ -20,6 +21,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/meetups/:id" element={<MeetupDetail />} />
         {user && <Route path="/profile" element={<Profile />} />}
+        {user && <Route path="/add-meetup" element={<AddMeetup />} />}
       </Routes>
     </>
   )

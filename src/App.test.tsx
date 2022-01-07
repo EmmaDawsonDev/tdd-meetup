@@ -163,7 +163,11 @@ describe('App integration test - login and logout flows', () => {
 
     const newMyProfileLink = screen.queryByRole('link', { name: 'My Profile' })
     expect(newMyProfileLink).toBeInTheDocument()
+
+    const logoutBtn = screen.getByRole('button', { name: /log out/i })
+    userEvent.click(logoutBtn)
   })
+  
 })
 
 

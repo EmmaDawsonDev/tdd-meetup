@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getCurrentMeetups, getPastMeetups } from '../../store/meetupsSlice'
 import { getAllCurrentMeetups, getAllPastMeetups } from '../../data/meetups'
 
+import { useNavigate } from 'react-router'
+
 import Card from '../../components/Card/Card'
 
 import classes from './Home.module.css'
@@ -13,6 +15,7 @@ import { IMeetup } from '../../models/meetup'
 const Home = () => {
   const currentMeetups = useSelector((state: RootState) => state.meetups.currentMeetups)
   const pastMeetups = useSelector((state: RootState) => state.meetups.pastMeetups)
+  const user = useSelector((state: RootState) => state.user.user)
 
   const [searchPhrase, setSearchPhrase] = useState('')
   const [filteredCurrentMeetups, setFilteredCurrentMeetups] = useState<IMeetup[]>([])
@@ -20,6 +23,7 @@ const Home = () => {
   const [dateFilter, setDateFilter] = useState<string>('')
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const currentMeetups = getAllCurrentMeetups(new Date())
@@ -133,6 +137,11 @@ const Home = () => {
           )}
         </section>
       </div>
+      {user && (
+        <button className={classes.addMeetupBtn} onClick={() => navigate('/add-meetup')}>
+          +
+        </button>
+      )}
     </main>
   )
 }
