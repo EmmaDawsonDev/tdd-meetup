@@ -54,4 +54,8 @@ describe('Add meetup tests', () => {
     const attendeeLimitInput = screen.getByLabelText('Attendee Limit', { exact: false })
     expect(attendeeLimitInput).toBeInTheDocument()
   })
+  it('renders an add meetup button', () => {
+    const addMeetupBtn = screen.getByRole('button', { name: 'Add meetup' })
+    expect(addMeetupBtn).toBeInTheDocument()
+  })
 })

@@ -56,6 +56,7 @@ const AddMeetup = () => {
           <label htmlFor="attendeeLimit">Attendee Limit (leave blank if there is no limit)</label>
           <input type="number" id="attendeeLimit" name="attendeeLimit" />
         </div>
+        <button>Add meetup</button>
       </form>
     </main>
   )

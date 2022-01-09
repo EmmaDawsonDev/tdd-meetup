@@ -121,20 +121,20 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
 - As a meetup organiser I want to be able to publish a meetup event so that I can share it with users of the site
     - Once logged in an Add meetup button should render on the main page ✅
     - Clicking the button should take me to an add meetup page with a form to add all the details ✅
-    - It shows an add meetup button
+    - It shows an add meetup button ✅
     - Submitting the form should validate the input to make sure all fields are filled in and the meetup date is in the future
     - Once validated, the meetup should be added to the list of meetups and be visible for everyone
     - It should also appear in the correct position in the list according to its date/time when rendered on the screen
 
 
 - As a meetup organiser I want to be able to limit the amount of users so that I know that there is enough space for everyone
-    - The add meetup form should include a limit for number of attendees
+    - The add meetup form should include a limit for number of attendees ✅
 
 - As a meetup organiser I want to be able to comment so that I can answer questions from attendees
-    - (see user story for logged in user making comments)
+    - (see user story for logged in user making comments) ✅
 
 - As a meetup organiser I want to be able to see ratings so that I know how the meetup went
-    - (see user story for looged in user adding a rating)
+    - (see user story for logged in user adding a rating) ✅
 
 - As a meetup organiser I want to be able to see how many people are coming so that I can plan for the right amount of attendees eg order food/drink
     - Meetup card renders total amount of attendees
