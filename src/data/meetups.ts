@@ -1,5 +1,7 @@
 import { IComment } from '../models/comment'
-import { IMeetup } from '../models/meetup'
+import { IMeetup, IMeetupBase } from '../models/meetup'
+
+let id = 6
 
 const meetups: IMeetup[] = [
   {
@@ -159,3 +161,9 @@ export const deleteAttendee = (id: number, attendeeName: string) => {
   }
 }
 
+export const addMeetup = (newMeetup: IMeetupBase) => {
+  let newMeetupToAdd: IMeetup = { ...newMeetup, id, attendees: [], comments: [], rating: [] }
+  meetups.push(newMeetupToAdd)
+  id++
+  return true
+}

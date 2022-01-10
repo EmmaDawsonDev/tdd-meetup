@@ -14,3 +14,14 @@ export interface IMeetup {
   comments: IComment[]
   rating: number[]
 }
+
+export interface IMeetupBase {
+  title: string
+  startDate: Date
+  endDate: Date
+  hostName: string
+  description: string
+  price?: number
+  location: string
+  attendeeLimit?: number
+}
