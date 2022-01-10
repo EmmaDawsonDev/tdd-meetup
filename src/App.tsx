@@ -17,11 +17,11 @@ function App() {
     <>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/meetups/:id" element={<MeetupDetail />} />
         {user && <Route path="/profile" element={<Profile />} />}
-        {user && <Route path="/add-meetup" element={<AddMeetup />} />}
+        <Route path="/add-meetup" element={<AddMeetup />} />
+        <Route path="/" element={<Home />} />
       </Routes>
     </>
   )

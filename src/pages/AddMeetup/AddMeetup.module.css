@@ -14,6 +14,12 @@
   color: #DF367C
 }
 
+.error {
+  color: #DF367C;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
 input {
   
     border-radius: 15px;

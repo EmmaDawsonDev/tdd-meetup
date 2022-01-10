@@ -20,12 +20,14 @@ const AddMeetup = () => {
   const [location, setLocation] = useState<string>('')
   const [price, setPrice] = useState<string>('')
   const [attendeeLimit, setAttendeeLimit] = useState<string>('')
+  const [error, setError] = useState<boolean>(false)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const handleAddMeetup = (e: React.FormEvent) => {
     e.preventDefault()
+    setError(false)
     const meetup: IMeetupBase = {
       hostName: user!.name,
       title,
@@ -41,10 +43,14 @@ const AddMeetup = () => {
       meetup.attendeeLimit = +attendeeLimit
     }
 
-    let response = addMeetup(meetup)
-    if (response) {
-      dispatch(getCurrentMeetups)
-      navigate('/')
+    if (meetup.startDate.getTime() > Date.now()) {
+      let response = addMeetup(meetup)
+      if (response) {
+        dispatch(getCurrentMeetups)
+        navigate('/')
+      }
+    } else {
+      setError(true)
     }
   }
 
@@ -63,6 +69,7 @@ const AddMeetup = () => {
             Start Date <span className={classes.required}>*</span>
           </label>
           <input type="date" id="startDate" name="startDate" required value={startDate} onChange={e => setStartDate(e.target.value)} />
+          {error && <p className={classes.error}>Please choose a future date</p>}
         </div>
         <div className={classes.meetupItem}>
           <label htmlFor="startTime">

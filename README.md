@@ -6,10 +6,10 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
 ### Criteria:
 - [x] UML use-case diagram
 - [x] User stories
-- [] Test Driven Development
+- [x] Test Driven Development
 - [x] Typescript interfaces describe the data
-- [] Implement the app
-- [] CSS, UI and UX should be functional
+- [x] Implement the app
+- [x] CSS, UI and UX should be functional
 
 
 ### UML Diagram
@@ -122,9 +122,9 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
     - Once logged in an Add meetup button should render on the main page ✅
     - Clicking the button should take me to an add meetup page with a form to add all the details ✅
     - It shows an add meetup button ✅
-    - Submitting the form should validate the input to make sure all fields are filled in and the meetup date is in the future
-    - Once validated, the meetup should be added to the list of meetups and be visible for everyone
-    - It should also appear in the correct position in the list according to its date/time when rendered on the screen
+    - Submitting the form should validate the input to make sure the meetup date is in the future ✅
+    - Once validated, the meetup should be added to the list of meetups and be visible for everyone ✅
+    - It should also appear in the correct position in the list according to its date/time when rendered on the screen ✅
 
 
 - As a meetup organiser I want to be able to limit the amount of users so that I know that there is enough space for everyone
