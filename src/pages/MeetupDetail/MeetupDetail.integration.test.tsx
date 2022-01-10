@@ -1,13 +1,15 @@
 import { screen } from '@testing-library/react'
 import { renderWithRouter } from '../../testing-utils'
 import App from '../../App'
-import { store } from '../../store/store'
+// import { store } from '../../store/store'
+import { makeStore } from '../../store/store'
 import { Provider } from 'react-redux'
 import userEvent from '@testing-library/user-event'
 import { resetMeetups } from '../../data/meetups'
 import { resetUsers } from '../../data/users'
 
 beforeEach(() => {
+  const store = makeStore()
   renderWithRouter(
     <Provider store={store}>
       <App />
@@ -26,12 +28,7 @@ const login = (email: string, password: string) => {
   userEvent.click(submitBtn)
 }
 
-const logout = () => {
-  const logoutBtn = screen.queryByRole('button', { name: /log out/i })
-  if (logoutBtn) {
-    userEvent.click(logoutBtn)
-  }
-}
+
 
 describe('App integration tests - registering for events', () => {
   it('doesnt render an attend button when user is logged out', () => {
@@ -55,7 +52,7 @@ describe('App integration tests - registering for events', () => {
     const attendBtn = screen.queryByRole('button', { name: 'Attend' })
     expect(attendBtn).toBeInTheDocument()
 
-    logout()
+    
   })
   it("doesn't render an attend button if the event has already past", () => {
     // Login
@@ -69,7 +66,7 @@ describe('App integration tests - registering for events', () => {
     const attendBtn = screen.queryByRole('button', { name: 'Attend' })
     expect(attendBtn).not.toBeInTheDocument()
 
-    logout()
+    
   })
   it('renders a meetup is over message instead of attend button if meetup is past', () => {
     // Login
@@ -83,7 +80,7 @@ describe('App integration tests - registering for events', () => {
     const message = screen.getByText('Meetup is over')
     expect(message).toBeInTheDocument()
 
-    logout()
+    
   })
   it('renders message Meetup full if attendee limit is reached', () => {
     // Login
@@ -96,7 +93,7 @@ describe('App integration tests - registering for events', () => {
     const message = screen.getByText('Meetup is fully booked')
     expect(message).toBeInTheDocument()
 
-    logout()
+    
   })
   it('renders a log in to attend button if user is not logged in', () => {
     // Navigate to detail page
@@ -125,7 +122,7 @@ describe('App integration tests - registering for events', () => {
     const updatedAttendeeList = await screen.findAllByTestId('userCard')
     expect(updatedAttendeeList).toHaveLength(3)
 
-    logout()
+    
   })
   it('Reduces the number of places by one when someone registers to attend', () => {
     // Login
@@ -146,7 +143,7 @@ describe('App integration tests - registering for events', () => {
     const updatedNumberOfPlaces = screen.getByTestId('places-left')
     expect(updatedNumberOfPlaces).toContainHTML('<p data-testid="places-left"><strong>Places left: </strong>16</p>')
 
-    logout()
+    
   })
   it("doesn't render the attend button if you already registered", () => {
     // Login
@@ -160,7 +157,7 @@ describe('App integration tests - registering for events', () => {
     const attendBtn = screen.queryByRole('button', { name: 'Attend' })
     expect(attendBtn).not.toBeInTheDocument()
 
-    logout()
+    
   })
   it('renders an empty comment input once logged in', () => {
     // Login
@@ -175,7 +172,7 @@ describe('App integration tests - registering for events', () => {
 
     expect(commentInput).toBeInTheDocument()
 
-    logout()
+    
   })
   it('renders an add comment button once logged in', () => {
     // Login
@@ -189,7 +186,7 @@ describe('App integration tests - registering for events', () => {
     const addCommentBtn = screen.queryByRole('button', { name: 'Add' })
     expect(addCommentBtn).toBeInTheDocument()
 
-    logout()
+    
   })
   it('renders 2 comments initially for swim meetup', () => {
     const cards = screen.getAllByTestId('pastListItem')
@@ -228,7 +225,7 @@ describe('App integration tests - registering for events', () => {
     const updatedCommentsList = screen.queryAllByTestId('commentListItem')
     expect(updatedCommentsList).toHaveLength(1)
 
-    logout()
+    
   })
   it('adds a new comment to the bottom of the list (chronological order)', () => {
     // Login
@@ -253,7 +250,7 @@ describe('App integration tests - registering for events', () => {
     expect(updatedCommentsList[1]).toHaveTextContent('11:21')
     expect(updatedCommentsList[2]).toHaveTextContent('This is a test')
 
-    logout()
+    
   })
   it('renders a ratings bar when user is logged in and attended a past meetup', () => {
     // Login
@@ -267,7 +264,7 @@ describe('App integration tests - registering for events', () => {
     const ratingInput = screen.queryAllByTestId('star-rating')
     expect(ratingInput).toHaveLength(5)
 
-    logout()
+    
   })
   it('doesnt render a ratings bar when user is logged in but did not attend a past meetup', () => {
     // Login
@@ -281,7 +278,7 @@ describe('App integration tests - registering for events', () => {
     const ratingInput = screen.queryAllByTestId('star-rating')
     expect(ratingInput).toHaveLength(0)
 
-    logout()
+    
   })
   it('renders an add rating button when logged in and user attended meetup', () => {
     // Login
@@ -296,7 +293,7 @@ describe('App integration tests - registering for events', () => {
     const addRatingBtn = screen.getByRole('button', { name: 'Add rating' })
     expect(addRatingBtn).toBeInTheDocument()
 
-    logout()
+    
   })
   it('updates the rating when a new rating is submitted', () => {
     // Login
@@ -318,7 +315,7 @@ describe('App integration tests - registering for events', () => {
     const rating = screen.getByText('5 / 5')
     expect(rating).toBeInTheDocument()
 
-    logout()
+    
   })
   it('renders an unregister button if user is already registered to attend meetup', () => {
     // Login
@@ -332,7 +329,7 @@ describe('App integration tests - registering for events', () => {
     const unregisterBtn = screen.queryByRole('button', { name: 'Unregister' })
     expect(unregisterBtn).toBeInTheDocument()
 
-    logout()
+    
   })
   it('removes attendee from list when clicking unregister', () => {
     // Login
@@ -358,7 +355,7 @@ describe('App integration tests - registering for events', () => {
     const updatedNumPlacesLeft = screen.getByTestId('places-left')
     expect(updatedNumPlacesLeft).toContainHTML('<p data-testid="places-left"><strong>Places left: </strong>17</p>')
 
-    logout()
+    
   })
   it('shows the attend button again when clicking unregister', () => {
     // Login
@@ -378,6 +375,6 @@ describe('App integration tests - registering for events', () => {
     const newAttendBtn = screen.queryByRole('button', { name: 'Attend' })
     expect(newAttendBtn).toBeInTheDocument()
 
-    logout()
+    
   })
 })

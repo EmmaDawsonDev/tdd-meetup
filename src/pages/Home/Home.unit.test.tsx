@@ -2,13 +2,15 @@ import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { renderWithRouter } from '../../testing-utils'
 import Home from './Home'
-import { store } from '../../store/store'
+// import { store } from '../../store/store'
+import { makeStore } from '../../store/store'
 import { Provider } from 'react-redux'
 import { mount } from 'enzyme'
 import { Routes, Route } from 'react-router'
 import { MemoryRouter } from 'react-router-dom'
 
 beforeEach(() => {
+  const store = makeStore()
   renderWithRouter(
     <Provider store={store}>
       <Home />
@@ -39,7 +41,7 @@ describe('Home unit tests - meetup lists', () => {
   })
   it('renders different css styling for past events', () => {
     const wrapper = mount(
-      <Provider store={store}>
+      <Provider store={makeStore()}>
         <MemoryRouter>
           <Routes>
             <Route path="/" element={<Home />} />

@@ -2,7 +2,8 @@ import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { renderWithRouter } from '../../testing-utils'
 import App from '../../App'
-import { store } from '../../store/store'
+// import { store } from '../../store/store'
+import { makeStore } from '../../store/store'
 import { Provider } from 'react-redux'
 import { resetMeetups } from '../../data/meetups'
 import { resetUsers } from '../../data/users'
@@ -10,6 +11,7 @@ import { resetUsers } from '../../data/users'
 beforeEach(() => {
   resetMeetups()
   resetUsers()
+  const store = makeStore()
 
   renderWithRouter(
     <Provider store={store}>
@@ -29,13 +31,6 @@ const login = (email: string, password: string) => {
   userEvent.click(submitBtn)
 }
 
-const logout = () => {
-  const logoutBtn = screen.queryByRole('button', { name: /log out/i })
-  if (logoutBtn) {
-    userEvent.click(logoutBtn)
-  }
-}
-
 describe('Home integration tests', () => {
   it('renders an add meetup button on main page when logged in', () => {
     const addMeetupBtn = screen.queryByRole('button', { name: '+' })
@@ -46,7 +41,7 @@ describe('Home integration tests', () => {
     const newAddMeetupBtn = screen.queryByRole('button', { name: '+' })
     expect(newAddMeetupBtn).toBeInTheDocument()
 
-    logout()
+    
   })
   it('reroutes to add meetup page when add meetup button is clicked', () => {
     login('hannah@gmail.com', 'hannahIsBest')
@@ -57,6 +52,6 @@ describe('Home integration tests', () => {
     const addMeetupTitle = screen.getByRole('heading', { name: 'Add Meetup' })
     expect(addMeetupTitle).toBeInTheDocument()
 
-    logout()
+   
   })
 })

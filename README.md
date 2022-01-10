@@ -138,7 +138,7 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
 
 - As a meetup organiser I want to be able to see how many people are coming so that I can plan for the right amount of attendees eg order food/drink
     - Meetup card renders total amount of attendees
-    - Meetup detail page renders total amount of attendees and their names
+    - Meetup detail page renders total amount of attendees ✅
 
 - As a meetup organiser I want to be able to cancel an event in case of unforseen circumstances
     - From My meetups page the organiser is able to delete any events they own
@@ -155,3 +155,6 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
 // 543 - emma is not registered to attend if store gets reset in between, change to joe instead.
 
 // Clean up unused imports
+
+// Current limitations: 
+No checks to stop owner clicking attend on their own meetup
