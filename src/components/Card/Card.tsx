@@ -1,4 +1,3 @@
-import React from 'react'
 import { IMeetup } from '../../models/meetup'
 import classes from './Card.module.css'
 import { Link } from 'react-router-dom'

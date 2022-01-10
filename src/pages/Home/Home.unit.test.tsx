@@ -1,11 +1,11 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { renderWithRouter } from '../../testing-utils'
 import Home from './Home'
 import { store } from '../../store/store'
 import { Provider } from 'react-redux'
-import {mount} from "enzyme"
-import {Routes, Route} from "react-router"
+import { mount } from 'enzyme'
+import { Routes, Route } from 'react-router'
 import { MemoryRouter } from 'react-router-dom'
 
 beforeEach(() => {
@@ -60,23 +60,24 @@ describe('Home unit tests - meetup lists', () => {
 })
 
 describe('Home unit tests - search', () => {
+  it('renders a search input field', () => {
+    const searchBox = screen.getByLabelText(/search/i)
+    expect(searchBox).toBeInTheDocument()
+  })
+  it('renders an empty search input field initially', () => {
+    const searchBox = screen.getByRole('searchbox')
+    expect(searchBox.textContent).toBe('')
+  })
   it('renders one past meetup when searching for backend', () => {
     const searchBox = screen.getByRole('searchbox')
-    const filteredMeetups = screen.getAllByTestId('pastListItem')
-
-    expect(filteredMeetups).toHaveLength(2)
 
     userEvent.type(searchBox, 'Backend')
 
     const newFilteredMeetups = screen.getAllByTestId('pastListItem')
-
     expect(newFilteredMeetups).toHaveLength(1)
   })
   it('renders no past meetups found message when searching for frontend', () => {
     const searchBox = screen.getByRole('searchbox')
-    const filteredMeetups = screen.getAllByTestId('pastListItem')
-
-    expect(filteredMeetups).toHaveLength(2)
 
     userEvent.type(searchBox, 'frontend')
 
@@ -86,43 +87,23 @@ describe('Home unit tests - search', () => {
     expect(newFilteredMeetups).toHaveLength(0)
     expect(message).toBeInTheDocument()
   })
-  it('renders a search input field', () => {
-    const searchBox = screen.getByLabelText(/search/i)
-    expect(searchBox).toBeInTheDocument()
-  })
-  it('renders an empty search input field initially', () => {
-    const searchBox = screen.getByRole('searchbox')
-    expect(searchBox.textContent).toBe('')
-  })
   it('renders one meetup when searching for frontend', () => {
     const searchBox = screen.getByRole('searchbox')
-    const filteredMeetups = screen.getAllByTestId('currentListItem')
-
-    expect(filteredMeetups).toHaveLength(3)
 
     userEvent.type(searchBox, 'Frontend')
 
     const newFilteredMeetups = screen.getAllByTestId('currentListItem')
-
     expect(newFilteredMeetups).toHaveLength(1)
   })
   it('search is case insensitive', () => {
     const searchBox = screen.getByRole('searchbox')
-    const filteredProducts = screen.getAllByTestId('currentListItem')
-
-    expect(filteredProducts).toHaveLength(3)
-
     userEvent.type(searchBox, 'Javascript')
 
     const newFilteredProducts = screen.getAllByTestId('currentListItem')
-
     expect(newFilteredProducts).toHaveLength(2)
   })
   it('renders a no matches found message if search doesnt have any matches', () => {
     const searchBox = screen.getByRole('searchbox')
-    const filteredMeetups = screen.getAllByTestId('currentListItem')
-
-    expect(filteredMeetups).toHaveLength(3)
 
     userEvent.type(searchBox, 'xyz')
 
@@ -136,13 +117,11 @@ describe('Home unit tests - search', () => {
     const searchBox = screen.getByRole('searchbox')
 
     const invisibleSearchString = screen.queryByRole('button', { name: '' })
-
     expect(invisibleSearchString).not.toBeInTheDocument()
 
     userEvent.type(searchBox, 'javascript')
 
     const searchString = screen.getByRole('button', { name: /javascript/i })
-
     expect(searchString).toBeInTheDocument()
   })
   it('clears the search when the search string button is pressed', () => {
@@ -150,7 +129,6 @@ describe('Home unit tests - search', () => {
 
     userEvent.type(searchBox, 'javascript')
     const filteredMeetups = screen.getAllByTestId('currentListItem')
-
     expect(filteredMeetups).toHaveLength(2)
 
     const searchString = screen.getByRole('button', { name: /javascript/i })
@@ -158,7 +136,6 @@ describe('Home unit tests - search', () => {
     userEvent.click(searchString)
 
     const newFilteredMeetups = screen.getAllByTestId('currentListItem')
-
     expect(newFilteredMeetups).toHaveLength(3)
   })
 })
@@ -267,4 +244,3 @@ describe('Home integration with card', () => {
     expect(meetup1).toHaveTextContent('Location: 10 Main Street, London')
   })
 })
-

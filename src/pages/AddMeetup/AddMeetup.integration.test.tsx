@@ -7,6 +7,7 @@ import { Provider } from 'react-redux'
 import { resetMeetups } from '../../data/meetups'
 import { resetUsers } from '../../data/users'
 
+
 beforeEach(() => {
   resetMeetups()
   resetUsers()

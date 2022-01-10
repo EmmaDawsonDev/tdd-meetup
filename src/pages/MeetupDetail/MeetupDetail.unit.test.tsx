@@ -2,9 +2,7 @@ import { screen } from '@testing-library/react'
 import { renderWithPath } from '../../testing-utils'
 import MeetupDetail from './MeetupDetail'
 
-// beforeEach(() => {
-//   renderWithPath('/meetups/1', <MeetupDetail />, '/meetups/:id')
-// })
+
 
 describe('Meetup detail unit tests', () => {
   it('renders the meetup detail component (smoke test)', () => {

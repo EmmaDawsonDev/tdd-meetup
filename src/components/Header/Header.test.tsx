@@ -14,7 +14,7 @@ beforeEach(() => {
 
 describe('Header', () => {
   it('renders Header component correctly (smoketest)', () => {})
-  it('WitrenderWithRouters text MeetApp in the header', () => {
+  it('renders the text logo MeetApp in the header', () => {
     const title = screen.getByText(/meetapp/i)
 
     expect(title).toBeInTheDocument()

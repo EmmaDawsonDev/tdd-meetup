@@ -1,13 +1,11 @@
-import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { renderWithRouter } from '../../testing-utils'
 import App from '../../App'
 import { store } from '../../store/store'
 import { Provider } from 'react-redux'
-
 import userEvent from '@testing-library/user-event'
-import { reset as resetUsers } from '../../store/usersSlice'
-import { reset as resetMeetUps } from '../../store/meetupsSlice'
+import { resetMeetups } from '../../data/meetups'
+import { resetUsers } from '../../data/users'
 
 beforeEach(() => {
   renderWithRouter(
@@ -17,9 +15,23 @@ beforeEach(() => {
   )
 })
 
-// afterEach(() => {
+const login = (email: string, password: string) => {
+  const loginBtn = screen.getByRole('button', { name: /login/i })
+  userEvent.click(loginBtn)
+  const emailInput = screen.getByLabelText(/email/i)
+  const passwordInput = screen.getByLabelText(/password/i)
+  const submitBtn = screen.getByTestId('login-btn')
+  userEvent.type(emailInput, email)
+  userEvent.type(passwordInput, password)
+  userEvent.click(submitBtn)
+}
 
-// })
+const logout = () => {
+  const logoutBtn = screen.queryByRole('button', { name: /log out/i })
+  if (logoutBtn) {
+    userEvent.click(logoutBtn)
+  }
+}
 
 describe('App integration tests - registering for events', () => {
   it('doesnt render an attend button when user is logged out', () => {
@@ -33,17 +45,7 @@ describe('App integration tests - registering for events', () => {
   })
   it('renders an attend button on meetup detail page when user is logged in if event is not full', () => {
     // Login
-    const loginBtn = screen.getByRole('button', { name: /login/i })
-
-    userEvent.click(loginBtn)
-
-    const emailInput = screen.getByLabelText(/email/i)
-    const passwordInput = screen.getByLabelText(/password/i)
-    const submitBtn = screen.getByTestId('login-btn')
-
-    userEvent.type(emailInput, 'hannah@gmail.com')
-    userEvent.type(passwordInput, 'hannahIsBest')
-    userEvent.click(submitBtn)
+    login('hannah@gmail.com', 'hannahIsBest')
 
     // Navigate to detail page
     const cards = screen.getAllByTestId('currentListItem')
@@ -53,22 +55,11 @@ describe('App integration tests - registering for events', () => {
     const attendBtn = screen.queryByRole('button', { name: 'Attend' })
     expect(attendBtn).toBeInTheDocument()
 
-    const logoutBtn = screen.getByRole('button', { name: /log out/i })
-    userEvent.click(logoutBtn)
+    logout()
   })
   it("doesn't render an attend button if the event has already past", () => {
     // Login
-    const loginBtn = screen.getByRole('button', { name: /login/i })
-
-    userEvent.click(loginBtn)
-
-    const emailInput = screen.getByLabelText(/email/i)
-    const passwordInput = screen.getByLabelText(/password/i)
-    const submitBtn = screen.getByTestId('login-btn')
-
-    userEvent.type(emailInput, 'hannah@gmail.com')
-    userEvent.type(passwordInput, 'hannahIsBest')
-    userEvent.click(submitBtn)
+    login('hannah@gmail.com', 'hannahIsBest')
 
     // Navigate to detail page
     const cards = screen.getAllByTestId('pastListItem')
@@ -78,22 +69,11 @@ describe('App integration tests - registering for events', () => {
     const attendBtn = screen.queryByRole('button', { name: 'Attend' })
     expect(attendBtn).not.toBeInTheDocument()
 
-    const logoutBtn = screen.getByRole('button', { name: /log out/i })
-    userEvent.click(logoutBtn)
+    logout()
   })
   it('renders a meetup is over message instead of attend button if meetup is past', () => {
     // Login
-    const loginBtn = screen.getByRole('button', { name: /login/i })
-
-    userEvent.click(loginBtn)
-
-    const emailInput = screen.getByLabelText(/email/i)
-    const passwordInput = screen.getByLabelText(/password/i)
-    const submitBtn = screen.getByTestId('login-btn')
-
-    userEvent.type(emailInput, 'hannah@gmail.com')
-    userEvent.type(passwordInput, 'hannahIsBest')
-    userEvent.click(submitBtn)
+    login('hannah@gmail.com', 'hannahIsBest')
 
     // Navigate to detail page
     const cards = screen.getAllByTestId('pastListItem')
@@ -103,23 +83,11 @@ describe('App integration tests - registering for events', () => {
     const message = screen.getByText('Meetup is over')
     expect(message).toBeInTheDocument()
 
-    const logoutBtn = screen.getByRole('button', { name: /log out/i })
-    userEvent.click(logoutBtn)
+    logout()
   })
   it('renders message Meetup full if attendee limit is reached', () => {
     // Login
-    const loginBtn = screen.getByRole('button', { name: /login/i })
-
-    userEvent.click(loginBtn)
-
-    const emailInput = screen.getByLabelText(/email/i)
-    const passwordInput = screen.getByLabelText(/password/i)
-    const submitBtn = screen.getByTestId('login-btn')
-
-    userEvent.type(emailInput, 'hannah@gmail.com')
-    userEvent.type(passwordInput, 'hannahIsBest')
-    userEvent.click(submitBtn)
-
+    login('hannah@gmail.com', 'hannahIsBest')
     // Navigate to detail page
     const cards = screen.getAllByTestId('currentListItem')
     const card3 = cards[2]
@@ -128,8 +96,7 @@ describe('App integration tests - registering for events', () => {
     const message = screen.getByText('Meetup is fully booked')
     expect(message).toBeInTheDocument()
 
-    const logoutBtn = screen.getByRole('button', { name: /log out/i })
-    userEvent.click(logoutBtn)
+    logout()
   })
   it('renders a log in to attend button if user is not logged in', () => {
     // Navigate to detail page
@@ -142,17 +109,7 @@ describe('App integration tests - registering for events', () => {
   })
   it('adds attendee to list of attendees when attend button is clicked', async () => {
     // Login
-    const loginBtn = screen.getByRole('button', { name: /login/i })
-
-    userEvent.click(loginBtn)
-
-    const emailInput = screen.getByLabelText(/email/i)
-    const passwordInput = screen.getByLabelText(/password/i)
-    const submitBtn = screen.getByTestId('login-btn')
-
-    userEvent.type(emailInput, 'sofie@gmail.com')
-    userEvent.type(passwordInput, 'sofieIsBest')
-    userEvent.click(submitBtn)
+    login('sofie@gmail.com', 'sofieIsBest')
 
     // Navigate to detail page
     const cards = screen.getAllByTestId('currentListItem')
@@ -168,22 +125,11 @@ describe('App integration tests - registering for events', () => {
     const updatedAttendeeList = await screen.findAllByTestId('userCard')
     expect(updatedAttendeeList).toHaveLength(3)
 
-    const logoutBtn = screen.getByRole('button', { name: /log out/i })
-    userEvent.click(logoutBtn)
+    logout()
   })
   it('Reduces the number of places by one when someone registers to attend', () => {
     // Login
-    const loginBtn = screen.getByRole('button', { name: /login/i })
-
-    userEvent.click(loginBtn)
-
-    const emailInput = screen.getByLabelText(/email/i)
-    const passwordInput = screen.getByLabelText(/password/i)
-    const submitBtn = screen.getByTestId('login-btn')
-
-    userEvent.type(emailInput, 'emma@gmail.com')
-    userEvent.type(passwordInput, 'emmaIsBest')
-    userEvent.click(submitBtn)
+    login('emma@gmail.com', 'emmaIsBest')
 
     // Navigate to detail page
     const cards = screen.getAllByTestId('currentListItem')
@@ -200,22 +146,11 @@ describe('App integration tests - registering for events', () => {
     const updatedNumberOfPlaces = screen.getByTestId('places-left')
     expect(updatedNumberOfPlaces).toContainHTML('<p data-testid="places-left"><strong>Places left: </strong>16</p>')
 
-    const logoutBtn = screen.getByRole('button', { name: /log out/i })
-    userEvent.click(logoutBtn)
+    logout()
   })
   it("doesn't render the attend button if you already registered", () => {
     // Login
-    const loginBtn = screen.getByRole('button', { name: /login/i })
-
-    userEvent.click(loginBtn)
-
-    const emailInput = screen.getByLabelText(/email/i)
-    const passwordInput = screen.getByLabelText(/password/i)
-    const submitBtn = screen.getByTestId('login-btn')
-
-    userEvent.type(emailInput, 'joe@gmail.com')
-    userEvent.type(passwordInput, 'joeIsBest')
-    userEvent.click(submitBtn)
+    login('joe@gmail.com', 'joeIsBest')
 
     // Navigate to detail page
     const cards = screen.getAllByTestId('currentListItem')
@@ -225,22 +160,11 @@ describe('App integration tests - registering for events', () => {
     const attendBtn = screen.queryByRole('button', { name: 'Attend' })
     expect(attendBtn).not.toBeInTheDocument()
 
-    const logoutBtn = screen.getByRole('button', { name: /log out/i })
-    userEvent.click(logoutBtn)
+    logout()
   })
   it('renders an empty comment input once logged in', () => {
     // Login
-    const loginBtn = screen.getByRole('button', { name: /login/i })
-
-    userEvent.click(loginBtn)
-
-    const emailInput = screen.getByLabelText(/email/i)
-    const passwordInput = screen.getByLabelText(/password/i)
-    const submitBtn = screen.getByTestId('login-btn')
-
-    userEvent.type(emailInput, 'joe@gmail.com')
-    userEvent.type(passwordInput, 'joeIsBest')
-    userEvent.click(submitBtn)
+    login('joe@gmail.com', 'joeIsBest')
 
     // Navigate to detail page
     const cards = screen.getAllByTestId('currentListItem')
@@ -251,22 +175,11 @@ describe('App integration tests - registering for events', () => {
 
     expect(commentInput).toBeInTheDocument()
 
-    const logoutBtn = screen.getByRole('button', { name: /log out/i })
-    userEvent.click(logoutBtn)
+    logout()
   })
   it('renders an add comment button once logged in', () => {
     // Login
-    const loginBtn = screen.getByRole('button', { name: /login/i })
-
-    userEvent.click(loginBtn)
-
-    const emailInput = screen.getByLabelText(/email/i)
-    const passwordInput = screen.getByLabelText(/password/i)
-    const submitBtn = screen.getByTestId('login-btn')
-
-    userEvent.type(emailInput, 'joe@gmail.com')
-    userEvent.type(passwordInput, 'joeIsBest')
-    userEvent.click(submitBtn)
+    login('joe@gmail.com', 'joeIsBest')
 
     // Navigate to detail page
     const cards = screen.getAllByTestId('currentListItem')
@@ -276,8 +189,7 @@ describe('App integration tests - registering for events', () => {
     const addCommentBtn = screen.queryByRole('button', { name: 'Add' })
     expect(addCommentBtn).toBeInTheDocument()
 
-    const logoutBtn = screen.getByRole('button', { name: /log out/i })
-    userEvent.click(logoutBtn)
+    logout()
   })
   it('renders 2 comments initially for swim meetup', () => {
     const cards = screen.getAllByTestId('pastListItem')
@@ -298,17 +210,7 @@ describe('App integration tests - registering for events', () => {
   })
   it('adds a new comment to the list when add comment button is pressed', () => {
     // Login
-    const loginBtn = screen.getByRole('button', { name: /login/i })
-
-    userEvent.click(loginBtn)
-
-    const emailInput = screen.getByLabelText(/email/i)
-    const passwordInput = screen.getByLabelText(/password/i)
-    const submitBtn = screen.getByTestId('login-btn')
-
-    userEvent.type(emailInput, 'joe@gmail.com')
-    userEvent.type(passwordInput, 'joeIsBest')
-    userEvent.click(submitBtn)
+    login('joe@gmail.com', 'joeIsBest')
 
     // Navigate to detail page
     const cards = screen.getAllByTestId('currentListItem')
@@ -326,22 +228,11 @@ describe('App integration tests - registering for events', () => {
     const updatedCommentsList = screen.queryAllByTestId('commentListItem')
     expect(updatedCommentsList).toHaveLength(1)
 
-    const logoutBtn = screen.getByRole('button', { name: /log out/i })
-    userEvent.click(logoutBtn)
+    logout()
   })
   it('adds a new comment to the bottom of the list (chronological order)', () => {
     // Login
-    const loginBtn = screen.getByRole('button', { name: /login/i })
-
-    userEvent.click(loginBtn)
-
-    const emailInput = screen.getByLabelText(/email/i)
-    const passwordInput = screen.getByLabelText(/password/i)
-    const submitBtn = screen.getByTestId('login-btn')
-
-    userEvent.type(emailInput, 'joe@gmail.com')
-    userEvent.type(passwordInput, 'joeIsBest')
-    userEvent.click(submitBtn)
+    login('joe@gmail.com', 'joeIsBest')
 
     // Navigate to detail page
     const cards = screen.getAllByTestId('pastListItem')
@@ -362,22 +253,11 @@ describe('App integration tests - registering for events', () => {
     expect(updatedCommentsList[1]).toHaveTextContent('11:21')
     expect(updatedCommentsList[2]).toHaveTextContent('This is a test')
 
-    const logoutBtn = screen.getByRole('button', { name: /log out/i })
-    userEvent.click(logoutBtn)
+    logout()
   })
   it('renders a ratings bar when user is logged in and attended a past meetup', () => {
     // Login
-    const loginBtn = screen.getByRole('button', { name: /login/i })
-
-    userEvent.click(loginBtn)
-
-    const emailInput = screen.getByLabelText(/email/i)
-    const passwordInput = screen.getByLabelText(/password/i)
-    const submitBtn = screen.getByTestId('login-btn')
-
-    userEvent.type(emailInput, 'hannah@gmail.com')
-    userEvent.type(passwordInput, 'hannahIsBest')
-    userEvent.click(submitBtn)
+    login('hannah@gmail.com', 'hannahIsBest')
 
     // Navigate to detail page
     const cards = screen.getAllByTestId('pastListItem')
@@ -387,22 +267,11 @@ describe('App integration tests - registering for events', () => {
     const ratingInput = screen.queryAllByTestId('star-rating')
     expect(ratingInput).toHaveLength(5)
 
-    const logoutBtn = screen.getByRole('button', { name: /log out/i })
-    userEvent.click(logoutBtn)
+    logout()
   })
   it('doesnt render a ratings bar when user is logged in but did not attend a past meetup', () => {
     // Login
-    const loginBtn = screen.getByRole('button', { name: /login/i })
-
-    userEvent.click(loginBtn)
-
-    const emailInput = screen.getByLabelText(/email/i)
-    const passwordInput = screen.getByLabelText(/password/i)
-    const submitBtn = screen.getByTestId('login-btn')
-
-    userEvent.type(emailInput, 'sofie@gmail.com')
-    userEvent.type(passwordInput, 'sofieIsBest')
-    userEvent.click(submitBtn)
+    login('sofie@gmail.com', 'sofieIsBest')
 
     // Navigate to detail page
     const cards = screen.getAllByTestId('pastListItem')
@@ -412,22 +281,11 @@ describe('App integration tests - registering for events', () => {
     const ratingInput = screen.queryAllByTestId('star-rating')
     expect(ratingInput).toHaveLength(0)
 
-    const logoutBtn = screen.getByRole('button', { name: /log out/i })
-    userEvent.click(logoutBtn)
+    logout()
   })
   it('renders an add rating button when logged in and user attended meetup', () => {
     // Login
-    const loginBtn = screen.getByRole('button', { name: /login/i })
-
-    userEvent.click(loginBtn)
-
-    const emailInput = screen.getByLabelText(/email/i)
-    const passwordInput = screen.getByLabelText(/password/i)
-    const submitBtn = screen.getByTestId('login-btn')
-
-    userEvent.type(emailInput, 'hannah@gmail.com')
-    userEvent.type(passwordInput, 'hannahIsBest')
-    userEvent.click(submitBtn)
+    login('hannah@gmail.com', 'hannahIsBest')
 
     // Navigate to detail page
     const cards = screen.getAllByTestId('pastListItem')
@@ -438,22 +296,11 @@ describe('App integration tests - registering for events', () => {
     const addRatingBtn = screen.getByRole('button', { name: 'Add rating' })
     expect(addRatingBtn).toBeInTheDocument()
 
-    const logoutBtn = screen.getByRole('button', { name: /log out/i })
-    userEvent.click(logoutBtn)
+    logout()
   })
   it('updates the rating when a new rating is submitted', () => {
     // Login
-    const loginBtn = screen.getByRole('button', { name: /login/i })
-
-    userEvent.click(loginBtn)
-
-    const emailInput = screen.getByLabelText(/email/i)
-    const passwordInput = screen.getByLabelText(/password/i)
-    const submitBtn = screen.getByTestId('login-btn')
-
-    userEvent.type(emailInput, 'hannah@gmail.com')
-    userEvent.type(passwordInput, 'hannahIsBest')
-    userEvent.click(submitBtn)
+    login('hannah@gmail.com', 'hannahIsBest')
 
     // Navigate to detail page
     const cards = screen.getAllByTestId('pastListItem')
@@ -471,22 +318,11 @@ describe('App integration tests - registering for events', () => {
     const rating = screen.getByText('5 / 5')
     expect(rating).toBeInTheDocument()
 
-    const logoutBtn = screen.getByRole('button', { name: /log out/i })
-    userEvent.click(logoutBtn)
+    logout()
   })
   it('renders an unregister button if user is already registered to attend meetup', () => {
     // Login
-    const loginBtn = screen.getByRole('button', { name: /login/i })
-
-    userEvent.click(loginBtn)
-
-    const emailInput = screen.getByLabelText(/email/i)
-    const passwordInput = screen.getByLabelText(/password/i)
-    const submitBtn = screen.getByTestId('login-btn')
-
-    userEvent.type(emailInput, 'joe@gmail.com')
-    userEvent.type(passwordInput, 'joeIsBest')
-    userEvent.click(submitBtn)
+    login('joe@gmail.com', 'joeIsBest')
 
     // Navigate to detail page
     const cards = screen.getAllByTestId('currentListItem')
@@ -496,22 +332,11 @@ describe('App integration tests - registering for events', () => {
     const unregisterBtn = screen.queryByRole('button', { name: 'Unregister' })
     expect(unregisterBtn).toBeInTheDocument()
 
-    const logoutBtn = screen.getByRole('button', { name: /log out/i })
-    userEvent.click(logoutBtn)
+    logout()
   })
   it('removes attendee from list when clicking unregister', () => {
     // Login
-    const loginBtn = screen.getByRole('button', { name: /login/i })
-
-    userEvent.click(loginBtn)
-
-    const emailInput = screen.getByLabelText(/email/i)
-    const passwordInput = screen.getByLabelText(/password/i)
-    const submitBtn = screen.getByTestId('login-btn')
-
-    userEvent.type(emailInput, 'joe@gmail.com')
-    userEvent.type(passwordInput, 'joeIsBest')
-    userEvent.click(submitBtn)
+    login('joe@gmail.com', 'joeIsBest')
 
     // Navigate to detail page
     const cards = screen.getAllByTestId('currentListItem')
@@ -533,22 +358,11 @@ describe('App integration tests - registering for events', () => {
     const updatedNumPlacesLeft = screen.getByTestId('places-left')
     expect(updatedNumPlacesLeft).toContainHTML('<p data-testid="places-left"><strong>Places left: </strong>17</p>')
 
-    const logoutBtn = screen.getByRole('button', { name: /log out/i })
-    userEvent.click(logoutBtn)
+    logout()
   })
   it('shows the attend button again when clicking unregister', () => {
     // Login
-    const loginBtn = screen.getByRole('button', { name: /login/i })
-
-    userEvent.click(loginBtn)
-
-    const emailInput = screen.getByLabelText(/email/i)
-    const passwordInput = screen.getByLabelText(/password/i)
-    const submitBtn = screen.getByTestId('login-btn')
-
-    userEvent.type(emailInput, 'emma@gmail.com')
-    userEvent.type(passwordInput, 'emmaIsBest')
-    userEvent.click(submitBtn)
+    login('emma@gmail.com', 'emmaIsBest')
 
     // Navigate to detail page
     const cards = screen.getAllByTestId('currentListItem')
@@ -564,9 +378,6 @@ describe('App integration tests - registering for events', () => {
     const newAttendBtn = screen.queryByRole('button', { name: 'Attend' })
     expect(newAttendBtn).toBeInTheDocument()
 
-    const logoutBtn = screen.getByRole('button', { name: /log out/i })
-    userEvent.click(logoutBtn)
+    logout()
   })
 })
-
-

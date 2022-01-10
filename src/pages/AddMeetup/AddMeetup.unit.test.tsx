@@ -1,12 +1,8 @@
-import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { screen } from '@testing-library/react'
 import { renderWithRouter } from '../../testing-utils'
 import AddMeetup from './AddMeetup'
 import { store } from '../../store/store'
 import { Provider } from 'react-redux'
-import { mount } from 'enzyme'
-import { Routes, Route } from 'react-router'
-import { MemoryRouter } from 'react-router-dom'
 
 beforeEach(() => {
   renderWithRouter(
