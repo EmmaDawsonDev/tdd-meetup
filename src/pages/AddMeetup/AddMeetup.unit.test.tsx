@@ -1,7 +1,6 @@
 import { screen } from '@testing-library/react'
 import { renderWithRouter } from '../../testing-utils'
 import AddMeetup from './AddMeetup'
-// import { store } from '../../store/store'
 import { makeStore } from '../../store/store'
 import { Provider } from 'react-redux'
 

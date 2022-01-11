@@ -1,3 +1,19 @@
 .error {
-  color: red;
+  color: #DF367C;
+}
+
+.loginFormContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 40rem;
+}
+
+.loginFormContainer > * {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginFormContainer button {
+  align-self: flex-end;
 }

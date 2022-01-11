@@ -1,10 +1,15 @@
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import Header from './Header'
-import { store } from '../../store/store'
+import { makeStore } from '../../store/store'
 import { Provider } from 'react-redux'
 import { renderWithRouter } from '../../testing-utils'
+import { resetMeetups } from '../../data/meetups'
+import { resetUsers } from '../../data/users'
 
 beforeEach(() => {
+  resetUsers()
+  resetMeetups()
+  const store = makeStore()
   renderWithRouter(
     <Provider store={store}>
       <Header />

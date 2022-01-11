@@ -2,10 +2,15 @@ import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { renderWithRouter } from '../../testing-utils'
 import Login from './Login'
-import { store } from '../../store/store'
+import { makeStore } from '../../store/store'
 import { Provider } from 'react-redux'
+import { resetMeetups } from '../../data/meetups'
+import { resetUsers } from '../../data/users'
 
 beforeEach(() => {
+  resetMeetups()
+  resetUsers()
+  const store = makeStore()
   renderWithRouter(
     <Provider store={store}>
       <Login />

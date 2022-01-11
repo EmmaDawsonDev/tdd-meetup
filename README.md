@@ -125,6 +125,7 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
     - Clicking the button should take me to an add meetup page with a form to add all the details ✅
     - It shows an add meetup button ✅
     - Submitting the form should validate the input to make sure the meetup date is in the future ✅
+    - Submitting the form should validate that the start date and time is before the end date and time ✅
     - Once validated, the meetup should be added to the list of meetups and be visible for everyone ✅
     - It should also appear in the correct position in the list according to its date/time when rendered on the screen ✅
 
@@ -139,18 +140,20 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
     - (see user story for logged in user adding a rating) ✅
 
 - As a meetup organiser I want to be able to see how many people are coming so that I can plan for the right amount of attendees eg order food/drink
-    - Meetup card renders total amount of attendees
     - Meetup detail page renders total amount of attendees ✅
 
-- As a meetup organiser I want to be able to cancel an event in case of unforseen circumstances
-    - From My meetups page the organiser is able to delete any events they own
-    - Meetups I own should show a delete button
-    - Clicking the delete button asks the owner to confirm their choice before removing the meetup from the list
 
-// Persist user data in local storage
+### Login information
+This app has several ficticious users. Their login details are as follows:
+Username: hannah@gmail.com password: hannahIsBest
+Username: emma@gmail.com password: emmaIsBest
+Username: joe@gmail.com password: joeIsBest
+Username: chris@gmail.com password: chrisIsBest
+Username: sofie@gmail.com password: sofieIsBest
 
-// Fix CSS
-// Clean up unused imports
 
-// Current limitations: 
-No checks to stop owner clicking attend on their own meetup
+#### Current limitations: 
+- No checks to stop owner clicking attend on their own meetup
+- Currently possible to add multiple ratings. This could be solved by storing ratings as objects along with the username so that it is only possible to rate if your username is not already in the array.
+- Not able to delete/cancel a meetup you're hosting
+- There is no real database. The database is mocked in a frontend js file.

@@ -1,4 +1,3 @@
-import React from 'react'
 import { IComment } from '../../models/comment'
 
 import classes from './CommentCard.module.css'

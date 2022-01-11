@@ -2,12 +2,10 @@ import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { renderWithRouter } from '../../testing-utils'
 import App from '../../App'
-// import { store } from '../../store/store'
 import { makeStore } from '../../store/store'
 import { Provider } from 'react-redux'
 import { resetMeetups } from '../../data/meetups'
 import { resetUsers } from '../../data/users'
-
 
 beforeEach(() => {
   resetMeetups()
@@ -31,7 +29,6 @@ const login = (email: string, password: string) => {
   userEvent.type(passwordInput, password)
   userEvent.click(submitBtn)
 }
-
 
 const inputNewMeetup = (
   title: string,
@@ -72,7 +69,6 @@ describe('Add meetup integration tests', () => {
     inputNewMeetup('New Meetup', '2022-03-06', '18:00', '2022-03-06', '20:00', 'This is a description', 'Nyköping')
     const updatedCurrentMeetupList = screen.getAllByTestId('currentListItem')
     expect(updatedCurrentMeetupList).toHaveLength(4)
-    
   })
   it('shows an error if the meetup date has already passed', () => {
     // Login
@@ -81,21 +77,26 @@ describe('Add meetup integration tests', () => {
     inputNewMeetup('New Meetup', '2021-03-06', '18:00', '2021-03-06', '20:00', 'This is a description', 'Nyköping')
     const errorMessage = screen.getByText('Please choose a future date')
     expect(errorMessage).toBeInTheDocument()
-    
   })
   it('adds a meetup to the list in the correct order', () => {
-    const currentMeetupList = screen.getAllByTestId('currentListItem')
-    expect(currentMeetupList).toHaveLength(3)
     // Login
     login('hannah@gmail.com', 'hannahIsBest')
     // Add meetup
     inputNewMeetup('New Meetup', '2022-12-26', '18:00', '2022-12-26', '20:00', 'This is a description', 'Nyköping')
+
     const updatedCurrentMeetupList = screen.getAllByTestId('currentListItem')
     expect(updatedCurrentMeetupList).toHaveLength(4)
     expect(updatedCurrentMeetupList[0]).toContainHTML('<p><strong>Start: </strong>Sat Dec 17 2022 13:00</p>')
     expect(updatedCurrentMeetupList[1]).toContainHTML('<p><strong>Start: </strong>Mon Dec 26 2022 18:00</p>')
     expect(updatedCurrentMeetupList[2]).toContainHTML('<p><strong>Start: </strong>Tue Dec 27 2022 13:00</p>')
     expect(updatedCurrentMeetupList[3]).toContainHTML('<p><strong>Start: </strong>Sat Jan 07 2023 19:30</p>')
-    
+  })
+  it('shows an error if end date is before start date', () => {
+    // Login
+    login('hannah@gmail.com', 'hannahIsBest')
+    // Add meetup
+    inputNewMeetup('New Meetup', '2021-03-06', '18:00', '2021-03-05', '20:00', 'This is a description', 'Nyköping')
+    const errorMessage = screen.getByText('Meetup must end after start date and time')
+    expect(errorMessage).toBeInTheDocument()
   })
 })

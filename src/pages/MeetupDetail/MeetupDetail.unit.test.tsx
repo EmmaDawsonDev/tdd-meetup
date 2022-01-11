@@ -82,7 +82,7 @@ describe('Meetup detail unit tests', () => {
   })
   it('renders a rating of 4.5 for  meetup with id 3', () => {
     renderWithPath('/meetups/3', <MeetupDetail />, '/meetups/:id')
-    const rating = screen.getByText('4.5 / 5')
+    const rating = screen.getByText('4.5 / 5', { exact: false })
     expect(rating).toBeInTheDocument()
   })
   it('renders a no ratings yet message for  meetup with id 5', () => {

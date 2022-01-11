@@ -3,3 +3,16 @@ main {
   margin: 0 auto;
   padding: 1rem;
 }
+
+button {
+  background-color: #155E75;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5em 1em;
+}
+
+button:hover {
+  background-color: #2784a0;
+}
+

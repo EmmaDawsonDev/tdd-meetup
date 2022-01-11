@@ -1,7 +1,6 @@
 import { screen } from '@testing-library/react'
 import { renderWithRouter } from '../../testing-utils'
 import App from '../../App'
-// import { store } from '../../store/store'
 import { makeStore } from '../../store/store'
 import { Provider } from 'react-redux'
 import userEvent from '@testing-library/user-event'
@@ -284,7 +283,7 @@ describe('App integration tests - registering for events', () => {
     const addRatingBtn = screen.getByRole('button', { name: 'Add rating' })
     userEvent.click(addRatingBtn)
 
-    const rating = screen.getByText('5 / 5')
+    const rating = screen.getByText('5.0 / 5', { exact: false })
     expect(rating).toBeInTheDocument()
   })
   it('renders an unregister button if user is already registered to attend meetup', () => {

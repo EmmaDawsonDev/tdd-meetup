@@ -22,6 +22,25 @@
   margin-bottom: 1rem;
 }
 
+.column2 button {
+  width: 100%;
+  
+  
+}
+
+.highlightBox {
+  text-align: center;
+  background-color: #FFC72C;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  
+  
+}
+
+.column2 .highlightBox p {
+  margin-bottom: 1rem;
+}
+
 .attendeesSection {
   margin: 2rem 0;
 }
@@ -53,6 +72,23 @@ textarea {
 .commentForm button {
   
   align-self: end;
+}
+
+.message {
+  background-color: rgb(245, 245, 245);
+  max-width: 40rem;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+}
+
+.ratingSection {
+  max-width: 40rem;
+}
+
+.ratingSection .highlightBox {
+  margin: 1rem 0;
+  font-size: 1.2rem;
 }
 
 @media (min-width: 600px) {

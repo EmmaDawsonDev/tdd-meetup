@@ -1,6 +1,6 @@
 // reference - https://www.cssscript.com/star-rating-radio/
 
-import React, { useState } from 'react'
+import { useState } from 'react'
 import classes from './Rating.module.css'
 
 interface Props {
@@ -27,7 +27,7 @@ const Rating = (props: Props) => {
 
   return (
     <fieldset className={classes.rating}>
-      <legend className={classes.ratingTitle}>Your rating:</legend>
+      <legend className={classes.ratingTitle}>Add your rating:</legend>
       <div className={classes.ratingStars} onChange={handleSetRating}>
         <input className={classes.ratingInput} data-testid="star-rating" type="radio" name="rating" value="1" id="rating-1" />
         <label className={classes.ratingLabel} htmlFor="rating-1" aria-label="One"></label>

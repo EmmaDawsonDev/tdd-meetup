@@ -2,7 +2,6 @@ import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { renderWithRouter } from '../../testing-utils'
 import App from '../../App'
-// import { store } from '../../store/store'
 import { makeStore } from '../../store/store'
 import { Provider } from 'react-redux'
 import { resetMeetups } from '../../data/meetups'
@@ -40,8 +39,6 @@ describe('Home integration tests', () => {
 
     const newAddMeetupBtn = screen.queryByRole('button', { name: '+' })
     expect(newAddMeetupBtn).toBeInTheDocument()
-
-    
   })
   it('reroutes to add meetup page when add meetup button is clicked', () => {
     login('hannah@gmail.com', 'hannahIsBest')
@@ -51,7 +48,5 @@ describe('Home integration tests', () => {
 
     const addMeetupTitle = screen.getByRole('heading', { name: 'Add Meetup' })
     expect(addMeetupTitle).toBeInTheDocument()
-
-   
   })
 })

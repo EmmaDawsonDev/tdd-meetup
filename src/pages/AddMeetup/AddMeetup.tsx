@@ -20,14 +20,16 @@ const AddMeetup = () => {
   const [location, setLocation] = useState<string>('')
   const [price, setPrice] = useState<string>('')
   const [attendeeLimit, setAttendeeLimit] = useState<string>('')
-  const [error, setError] = useState<boolean>(false)
+  const [startDateError, setStartDateError] = useState<boolean>(false)
+  const [endDateError, setEndDateError] = useState<boolean>(false)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const handleAddMeetup = (e: React.FormEvent) => {
     e.preventDefault()
-    setError(false)
+    setStartDateError(false)
+    setEndDateError(false)
     const meetup: IMeetupBase = {
       hostName: user!.name,
       title,
@@ -43,6 +45,11 @@ const AddMeetup = () => {
       meetup.attendeeLimit = +attendeeLimit
     }
 
+    if (meetup.startDate.getTime() > meetup.endDate.getTime()) {
+      setEndDateError(true)
+      return
+    }
+
     if (meetup.startDate.getTime() > Date.now()) {
       let response = addMeetup(meetup)
       if (response) {
@@ -50,7 +57,7 @@ const AddMeetup = () => {
         navigate('/')
       }
     } else {
-      setError(true)
+      setStartDateError(true)
     }
   }
 
@@ -69,7 +76,7 @@ const AddMeetup = () => {
             Start Date <span className={classes.required}>*</span>
           </label>
           <input type="date" id="startDate" name="startDate" required value={startDate} onChange={e => setStartDate(e.target.value)} />
-          {error && <p className={classes.error}>Please choose a future date</p>}
+          {startDateError && <p className={classes.error}>Please choose a future date</p>}
         </div>
         <div className={classes.meetupItem}>
           <label htmlFor="startTime">
@@ -82,6 +89,7 @@ const AddMeetup = () => {
             End Date <span className={classes.required}>*</span>
           </label>
           <input type="date" id="endDate" name="endDate" required value={endDate} onChange={e => setEndDate(e.target.value)} />
+          {endDateError && <p className={classes.error}>Meetup must end after start date and time</p>}
         </div>
         <div className={classes.meetupItem}>
           <label htmlFor="endTime">

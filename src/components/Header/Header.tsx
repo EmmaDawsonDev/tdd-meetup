@@ -1,4 +1,3 @@
-import React from 'react'
 import { RootState } from '../../store/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, useMatch, Link } from 'react-router-dom'
@@ -25,7 +24,7 @@ const Header = () => {
       {!user && !match && <button onClick={() => navigate('/login')}>Login</button>}
       {user && (
         <nav className={classes.navContainer}>
-          <p>Welcome, {user.name}</p>
+          <p className={classes.welcomeMessage}>Welcome, {user.name}</p>
           <Link to="/profile">My Profile</Link>
           <button onClick={handleLogout}>Log out</button>
         </nav>

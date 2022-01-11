@@ -1,6 +1,4 @@
-import React from 'react'
 import classes from './UserCard.module.css'
-
 interface Props {
   username: string
 }

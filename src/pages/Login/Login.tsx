@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { validateUser } from '../../data/users'
-
 import { useDispatch } from 'react-redux'
 import { login } from '../../store/usersSlice'
 import { useNavigate } from 'react-router-dom'
@@ -30,7 +29,7 @@ const Login = () => {
   return (
     <main>
       <h2>Log in</h2>
-      <form name="login-form" onSubmit={handleLogin}>
+      <form name="login-form" className={classes.loginFormContainer} onSubmit={handleLogin}>
         <div>
           <label htmlFor="email">Email:</label>
           <input

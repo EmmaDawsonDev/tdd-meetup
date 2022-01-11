@@ -7,7 +7,6 @@ import { updateAttending } from '../../data/users'
 import { RootState } from '../../store/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateUser } from '../../store/usersSlice'
-
 import classes from './MeetupDetail.module.css'
 import UserCard from '../../components/UserCard/UserCard'
 import CommentCard from '../../components/CommentCard/CommentCard'
@@ -151,13 +150,13 @@ const MeetupDetail = () => {
               )}
               {user && meetup.attendees.length < maxAttendees && isCurrent && isAttending && (
                 <div>
-                  <p>You're going!</p>
+                  <p className={classes.highlightBox}>You're going!</p>
                   <button onClick={handleUnregister}>Unregister</button>
                 </div>
               )}
               {!user && meetup.attendees.length < maxAttendees && isCurrent && <button onClick={handleLogin}>Log in to attend</button>}
-              {meetup.attendees.length >= maxAttendees && isCurrent && <p>Meetup is fully booked</p>}
-              {!isCurrent && <p>Meetup is over</p>}
+              {meetup.attendees.length >= maxAttendees && isCurrent && <p className={classes.highlightBox}>Meetup is fully booked</p>}
+              {!isCurrent && <p className={classes.highlightBox}>Meetup is over</p>}
             </section>
           </div>
           <section className={classes.attendeesSection}>
@@ -170,7 +169,7 @@ const MeetupDetail = () => {
           </section>
           <section>
             <h2>Comments</h2>
-            {orderedComments.length === 0 && <p>No comments yet</p>}
+            {orderedComments.length === 0 && <p className={classes.message}>No comments yet</p>}
             {orderedComments && orderedComments.map((comment, index) => <CommentCard key={`${comment.name}${index}`} comment={comment} />)}
             {user && (
               <form className={classes.commentForm} onSubmit={e => handleAddComment(e)}>
@@ -188,11 +187,15 @@ const MeetupDetail = () => {
             )}
           </section>
           {!isCurrent && (
-            <section data-testid="rating">
+            <section data-testid="rating" className={classes.ratingSection}>
               <h2>Rating</h2>
-              {meetup.rating.length > 0 && <p>{meetup.rating.reduce((a, b) => a + b) / meetup.rating.length} / 5</p>}
-              {meetup.rating.length === 0 && <p>No ratings yet</p>}
               {user && isAttending && <Rating handleRating={handleAddRating} />}
+              {meetup.rating.length > 0 && (
+                <p className={classes.highlightBox}>
+                  Current average rating: {(meetup.rating.reduce((a, b) => a + b) / meetup.rating.length).toFixed(1)} / 5
+                </p>
+              )}
+              {meetup.rating.length === 0 && <p className={classes.message}>No ratings yet</p>}
             </section>
           )}
         </div>

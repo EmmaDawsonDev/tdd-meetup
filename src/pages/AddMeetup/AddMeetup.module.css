@@ -11,13 +11,17 @@
 }
 
 .required {
-  color: #DF367C
+  color: #DF367C;
 }
 
 .error {
   color: #DF367C;
   font-weight: bold;
   font-size: 0.8rem;
+}
+
+.meetupForm button {
+  align-self: flex-end;
 }
 
 input {

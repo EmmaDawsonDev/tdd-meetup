@@ -1,14 +1,15 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react'
 import { renderWithRouter } from './testing-utils'
 import App from './App'
-// import { store } from './store/store'
 import { makeStore } from './store/store'
 import { Provider } from 'react-redux'
-
+import { resetMeetups } from '../src/data/meetups'
+import { resetUsers } from '../src/data/users'
 import userEvent from '@testing-library/user-event'
 
 beforeEach(() => {
+  resetMeetups()
+  resetUsers()
   const store = makeStore()
   renderWithRouter(
     <Provider store={store}>
@@ -60,38 +61,31 @@ describe('App integration test - login and logout flows', () => {
     expect(sameLoginButton).not.toBeInTheDocument()
   })
   it('redirects to previous page if user credentials are correct when logging in', () => {
-    login("hannah@gmail.com", "hannahIsBest")
+    login('hannah@gmail.com', 'hannahIsBest')
 
     const title = screen.getByRole('heading', { name: 'Current meetups' })
     expect(title).toBeInTheDocument()
-
-    
   })
   it("renders the user's name in the header when logged in", () => {
-    login("hannah@gmail.com", "hannahIsBest")
+    login('hannah@gmail.com', 'hannahIsBest')
 
     const username = screen.getByText('Welcome, Hannah')
     expect(username).toBeInTheDocument()
-
-    
   })
   it('renders a log out button in the header when user is logged in', () => {
-    login("hannah@gmail.com", "hannahIsBest")
+    login('hannah@gmail.com', 'hannahIsBest')
 
     const logoutBtn = screen.getByRole('button', { name: /log out/i })
     expect(logoutBtn).toBeInTheDocument()
-    
   })
   it('doesnt render a log in button in the header when user is logged in', () => {
-    login("hannah@gmail.com", "hannahIsBest")
+    login('hannah@gmail.com', 'hannahIsBest')
 
     const sameLoginBtn = screen.queryByRole('button', { name: /login/i })
     expect(sameLoginBtn).not.toBeInTheDocument()
-
-    
   })
   it('renders log in button again once logged out', () => {
-    login("hannah@gmail.com", "hannahIsBest")
+    login('hannah@gmail.com', 'hannahIsBest')
 
     const loginBtn = screen.queryByRole('button', { name: /login/i })
     expect(loginBtn).not.toBeInTheDocument()
@@ -109,14 +103,9 @@ describe('App integration test - login and logout flows', () => {
     const myProfileLink = screen.queryByRole('link', { name: 'My profile' })
     expect(myProfileLink).not.toBeInTheDocument()
 
-    login("hannah@gmail.com", "hannahIsBest")
+    login('hannah@gmail.com', 'hannahIsBest')
 
     const newMyProfileLink = screen.queryByRole('link', { name: 'My Profile' })
     expect(newMyProfileLink).toBeInTheDocument()
-
-    
   })
-  
 })
-
-

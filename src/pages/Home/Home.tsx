@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react'
-
 import { RootState } from '../../store/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { getCurrentMeetups, getPastMeetups } from '../../store/meetupsSlice'
 import { getAllCurrentMeetups, getAllPastMeetups } from '../../data/meetups'
-
 import { useNavigate } from 'react-router'
-
 import Card from '../../components/Card/Card'
-
 import classes from './Home.module.css'
 import { IMeetup } from '../../models/meetup'
 

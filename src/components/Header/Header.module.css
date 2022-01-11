@@ -18,6 +18,7 @@
 
 .header button {
   background-color: #fff;
+  color: black;
   border: none;
   border-radius: 5px;
   padding: 0.5em 1em;
@@ -36,4 +37,10 @@
 
 .navContainer a {
   text-decoration: underline;
+}
+
+@media (max-width: 539px) {
+  .welcomeMessage {
+    display: none;
+  }
 }
