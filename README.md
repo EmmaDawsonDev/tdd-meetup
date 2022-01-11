@@ -92,7 +92,7 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
     - Renders a list of comment cards ✅
     - Comment cards are shown in chronological order (most recent last) ✅
     - Comment cards show date, time, username and comment ✅
-    - Renders a no comments yet message when there are no comments 
+    - Renders a no comments yet message when there are no comments ✅
 
 - As a logged in website user I want to be able to rate a past meetup so that I can give feedback to the organiser and other attendees
     - If meetup has past a rating is shown to everyone or "no rating" message is no ratings have been made ✅
@@ -108,10 +108,12 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
     - The attend button will show again once the user has unregistered ✅
 
 - As a logged in website user I want to be able to see which meetups I'm registered for so that I can keep track of them (see note below row 145)
-    - There is a button to my meetups page in the header ✅
-    - My meetups page shows a list of meetups the user is attending
-    - My meetups page shows a list of meetups the user has attended
-    - My meetups page shows a list of meetups the user is organising
+    - There is a button to my meetups profile page in the header ✅
+    - My meetups profile page shows a list of meetups the user is attending ✅
+    - future meetups are in chronological order ✅
+    - My meetups profile page shows a list of meetups the user has attended ✅
+    - Past meetups are in reverse chronological order ✅
+    - My meetups profile page shows a list of meetups the user is organising ✅
 
 - As a logged in website user I want to be able to log out so that my information is not visible to others sharing the same device
     - When logged in, a log out button is visible in the header ✅
@@ -147,13 +149,7 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
 
 // Persist user data in local storage
 
-// handleAddAttendee function in MeetupDetail does not currently add the meetup id to the user's attending array. This might be needed on the profile page.
-
-
-// See note in meetupDetail integration tests line 188 - how to reset store/db to initial state in between each test?
-// meetup detail integration 522 & 525 - will change if store resets between each test
-// 543 - emma is not registered to attend if store gets reset in between, change to joe instead.
-
+// Fix CSS
 // Clean up unused imports
 
 // Current limitations: 

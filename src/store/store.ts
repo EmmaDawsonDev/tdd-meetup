@@ -14,16 +14,6 @@ export const makeStore = () =>
       }),
   })
 
-// export const store = configureStore({
-//   reducer: {
-//     user: userReducer,
-//     meetups: meetupReducer,
-//   },
-//   middleware: getDefaultMiddleware =>
-//     getDefaultMiddleware({
-//       serializableCheck: false,
-//     }),
-// })
 
 export const store = makeStore()
 

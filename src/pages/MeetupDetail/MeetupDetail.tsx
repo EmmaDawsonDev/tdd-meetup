@@ -3,8 +3,10 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { IMeetup } from '../../models/meetup'
 import { IComment } from '../../models/comment'
 import { getMeetupById, updateMeetupAttendeeList, updateCommentsList, updateRating, deleteAttendee } from '../../data/meetups'
+import { updateAttending } from '../../data/users'
 import { RootState } from '../../store/store'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateUser } from '../../store/usersSlice'
 
 import classes from './MeetupDetail.module.css'
 import UserCard from '../../components/UserCard/UserCard'
@@ -23,6 +25,7 @@ const MeetupDetail = () => {
 
   const { id } = useParams()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const meetup = getMeetupById(+id!)
@@ -69,8 +72,9 @@ const MeetupDetail = () => {
 
   const handleAddAttendee = () => {
     const updatedMeetup = updateMeetupAttendeeList(+id!, user!.name)
-
+    const updatedUser = updateAttending(user!.id, meetup!.id)
     updatedMeetup ? setMeetup({ ...updatedMeetup }) : setError(true)
+    updatedUser ? dispatch(updateUser(updatedUser)) : setError(true)
   }
 
   const handleAddComment = (e: React.FormEvent) => {

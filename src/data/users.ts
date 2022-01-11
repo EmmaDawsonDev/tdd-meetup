@@ -22,7 +22,7 @@ let users: IUserPassword[] = [
     name: 'Chris',
     email: 'chris@gmail.com',
     password: 'chrisIsBest',
-    attending: [1, 4, 3],
+    attending: [3, 4, 1],
     meetupOwner: [],
   },
   { id: 4, name: 'Sofie', email: 'sofie@gmail.com', password: 'sofieIsBest', attending: [], meetupOwner: [] },
@@ -35,6 +35,20 @@ export const validateUser = (email: string, password: string): IUser | undefined
   return user && user.password === password
     ? { id: user.id, name: user.name, email: user.email, attending: user.attending, meetupOwner: user.meetupOwner }
     : undefined
+}
+
+export const updateAttending = (userId: number, meetupId: number) => {
+  const userIndex = users.findIndex(user => user.id === userId)
+  const user = users.find(user => user.id === userId)
+
+  if (user) {
+    const updatedUser = { ...user }
+    updatedUser.attending = [...updatedUser.attending, meetupId]
+    users[userIndex] = updatedUser
+    return updatedUser
+  } else {
+    return undefined
+  }
 }
 
 export const resetUsers = () => {
