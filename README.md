@@ -145,11 +145,11 @@ The details can be found here: [Inlämningsuppgift - Meetup](https://docs.google
 
 ### Login information
 This app has several ficticious users. Their login details are as follows:
-Username: hannah@gmail.com password: hannahIsBest
-Username: emma@gmail.com password: emmaIsBest
-Username: joe@gmail.com password: joeIsBest
-Username: chris@gmail.com password: chrisIsBest
-Username: sofie@gmail.com password: sofieIsBest
+Username: hannah@gmail.com password: hannahIsBest  
+Username: emma@gmail.com password: emmaIsBest  
+Username: joe@gmail.com password: joeIsBest  
+Username: chris@gmail.com password: chrisIsBest  
+Username: sofie@gmail.com password: sofieIsBest  
 
 
 #### Current limitations: 
