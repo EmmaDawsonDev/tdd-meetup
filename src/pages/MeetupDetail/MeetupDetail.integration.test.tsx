@@ -229,7 +229,7 @@ describe('App integration tests - registering for events', () => {
     expect(updatedCommentsList[1]).toHaveTextContent('11:21')
     expect(updatedCommentsList[2]).toHaveTextContent('This is a test')
   })
-  it('renders a ratings bar when user is logged in and attended a past meetup', () => {
+  it('renders a ratings input with 5 checkboxes when user is logged in and attended a past meetup', () => {
     // Login
     login('hannah@gmail.com', 'hannahIsBest')
 
@@ -275,7 +275,7 @@ describe('App integration tests - registering for events', () => {
     const card1 = cards[0]
     userEvent.click(card1)
 
-    // Find button add add rating
+    // Find button and add rating
 
     const ratingInput = screen.queryAllByTestId('star-rating')
     userEvent.click(ratingInput[4])
@@ -285,6 +285,23 @@ describe('App integration tests - registering for events', () => {
 
     const rating = screen.getByText('5.0 / 5', { exact: false })
     expect(rating).toBeInTheDocument()
+  })
+  it('renders an error message if ratings button is clicked when no rating is selected', () => {
+    // Login
+    login('hannah@gmail.com', 'hannahIsBest')
+
+    // Navigate to detail page
+    const cards = screen.getAllByTestId('pastListItem')
+    const card1 = cards[0]
+    userEvent.click(card1)
+
+    // Click rating button directly without selecting rating
+
+    const addRatingBtn = screen.getByRole('button', { name: 'Add rating' })
+    userEvent.click(addRatingBtn)
+
+    const message = screen.getByText('Please choose a rating!')
+    expect(message).toBeInTheDocument()
   })
   it('renders an unregister button if user is already registered to attend meetup', () => {
     // Login

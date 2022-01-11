@@ -30,7 +30,7 @@ const login = (email: string, password: string) => {
   userEvent.click(submitBtn)
 }
 
-const inputNewMeetup = (
+const inputNewMeetupRequired = (
   title: string,
   startDate: string,
   startTime: string,
@@ -59,14 +59,49 @@ const inputNewMeetup = (
   userEvent.click(addBtn)
 }
 
+const inputNewMeetupExtraInfo = (
+  title: string,
+  startDate: string,
+  startTime: string,
+  endDate: string,
+  endTime: string,
+  description: string,
+  location: string,
+  price: string,
+  attendeeLimit: string
+) => {
+  const addMeetupBtn = screen.getByRole('button', { name: '+' })
+  userEvent.click(addMeetupBtn)
+  const titleInput = screen.getByLabelText('Title', { exact: false })
+  const startDateInput = screen.getByLabelText('Start Date', { exact: false })
+  const startTimeInput = screen.getByLabelText('Start Time', { exact: false })
+  const endDateInput = screen.getByLabelText('End Date', { exact: false })
+  const endTimeInput = screen.getByLabelText('End Time', { exact: false })
+  const descriptionInput = screen.getByLabelText('Description', { exact: false })
+  const locationInput = screen.getByLabelText('Location', { exact: false })
+  const priceInput = screen.getByLabelText('Price', { exact: false })
+  const attendeeLimitInput = screen.getByLabelText('Attendee Limit', { exact: false })
+  const addBtn = screen.getByRole('button', { name: 'Add meetup' })
+  userEvent.type(titleInput, title)
+  userEvent.type(startDateInput, startDate)
+  userEvent.type(startTimeInput, startTime)
+  userEvent.type(endDateInput, endDate)
+  userEvent.type(endTimeInput, endTime)
+  userEvent.type(descriptionInput, description)
+  userEvent.type(locationInput, location)
+  userEvent.type(priceInput, price)
+  userEvent.type(attendeeLimitInput, attendeeLimit)
+  userEvent.click(addBtn)
+}
+
 describe('Add meetup integration tests', () => {
-  it('adds a meetup to the list', () => {
+  it('adds a meetup to the list with required information', () => {
     const currentMeetupList = screen.getAllByTestId('currentListItem')
     expect(currentMeetupList).toHaveLength(3)
     // Login
     login('hannah@gmail.com', 'hannahIsBest')
     // Add meetup
-    inputNewMeetup('New Meetup', '2022-03-06', '18:00', '2022-03-06', '20:00', 'This is a description', 'Nyköping')
+    inputNewMeetupRequired('New Meetup', '2022-03-06', '18:00', '2022-03-06', '20:00', 'This is a description', 'Nyköping')
     const updatedCurrentMeetupList = screen.getAllByTestId('currentListItem')
     expect(updatedCurrentMeetupList).toHaveLength(4)
   })
@@ -74,7 +109,7 @@ describe('Add meetup integration tests', () => {
     // Login
     login('hannah@gmail.com', 'hannahIsBest')
     // Add meetup
-    inputNewMeetup('New Meetup', '2021-03-06', '18:00', '2021-03-06', '20:00', 'This is a description', 'Nyköping')
+    inputNewMeetupRequired('New Meetup', '2021-03-06', '18:00', '2021-03-06', '20:00', 'This is a description', 'Nyköping')
     const errorMessage = screen.getByText('Please choose a future date')
     expect(errorMessage).toBeInTheDocument()
   })
@@ -82,7 +117,7 @@ describe('Add meetup integration tests', () => {
     // Login
     login('hannah@gmail.com', 'hannahIsBest')
     // Add meetup
-    inputNewMeetup('New Meetup', '2022-12-26', '18:00', '2022-12-26', '20:00', 'This is a description', 'Nyköping')
+    inputNewMeetupRequired('New Meetup', '2022-12-26', '18:00', '2022-12-26', '20:00', 'This is a description', 'Nyköping')
 
     const updatedCurrentMeetupList = screen.getAllByTestId('currentListItem')
     expect(updatedCurrentMeetupList).toHaveLength(4)
@@ -95,8 +130,17 @@ describe('Add meetup integration tests', () => {
     // Login
     login('hannah@gmail.com', 'hannahIsBest')
     // Add meetup
-    inputNewMeetup('New Meetup', '2021-03-06', '18:00', '2021-03-05', '20:00', 'This is a description', 'Nyköping')
+    inputNewMeetupRequired('New Meetup', '2021-03-06', '18:00', '2021-03-05', '20:00', 'This is a description', 'Nyköping')
     const errorMessage = screen.getByText('Meetup must end after start date and time')
     expect(errorMessage).toBeInTheDocument()
+  })
+  it('adds a meetup to the list with information about price and attendee limit', () => {
+    // Login
+    login('hannah@gmail.com', 'hannahIsBest')
+    // Add meetup
+    inputNewMeetupExtraInfo('New Meetup', '2022-03-06', '18:00', '2022-03-06', '20:00', 'This is a description', 'Nyköping', '50', '30')
+
+    const updatedCurrentMeetupList = screen.getAllByTestId('currentListItem')
+    expect(updatedCurrentMeetupList).toHaveLength(4)
   })
 })

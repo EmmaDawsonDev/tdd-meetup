@@ -50,15 +50,17 @@ const AddMeetup = () => {
       return
     }
 
-    if (meetup.startDate.getTime() > Date.now()) {
-      let response = addMeetup(meetup)
-      if (response) {
-        dispatch(getCurrentMeetups)
-        navigate('/')
-      }
-    } else {
+    if (meetup.startDate.getTime() < Date.now()) {
       setStartDateError(true)
+      return
     }
+
+    let response = addMeetup(meetup)
+    if (response) {
+      dispatch(getCurrentMeetups)
+      navigate('/')
+    }
+    
   }
 
   return (
