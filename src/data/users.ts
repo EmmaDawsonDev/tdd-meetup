@@ -52,11 +52,14 @@ export const updateAttending = (userId: number, meetupId: number) => {
 }
 
 export const deleteAttending = (userId: number, meetupId: number) => {
+  const userIndex = users.findIndex(user => user.id === userId)
   const user = users.find(user => user.id === userId)
 
   if (user) {
-    user.attending = user.attending.filter(id => id !== meetupId)
-    return user
+    const updatedUser = { ...user }
+    updatedUser.attending = user.attending.filter(id => id !== meetupId)
+    users[userIndex] = updatedUser
+    return updatedUser
   } else {
     return undefined
   }
