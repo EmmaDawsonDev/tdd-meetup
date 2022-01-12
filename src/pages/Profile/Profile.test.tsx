@@ -170,4 +170,22 @@ describe('Profile integration tests', () => {
     const message = screen.getByText('You have not hosted any meetups yet')
     expect(message).toBeInTheDocument()
   })
+  it("doesn't render meetups as attending when someone has unregistered", () => {
+    login('hannah@gmail.com', 'hannahIsBest')
+
+    // Navigate to Frontend programming event page and unregister
+    const cards = screen.getAllByTestId('currentListItem')
+    const card3 = cards[2]
+
+    userEvent.click(card3)
+
+    const unregisterBtn = screen.getByRole('button', { name: 'Unregister' })
+    userEvent.click(unregisterBtn)
+
+    const myProfileLink = screen.getByRole('link', { name: 'My Profile' })
+    userEvent.click(myProfileLink)
+
+    const myMeetups = screen.queryAllByTestId('currentProfileListItem')
+    expect(myMeetups).toHaveLength(0)
+  })
 })

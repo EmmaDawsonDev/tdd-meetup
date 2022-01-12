@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { IMeetup } from '../../models/meetup'
 import { IComment } from '../../models/comment'
 import { getMeetupById, updateMeetupAttendeeList, updateCommentsList, updateRating, deleteAttendee } from '../../data/meetups'
-import { updateAttending } from '../../data/users'
+import { updateAttending, deleteAttending } from '../../data/users'
 import { RootState } from '../../store/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateUser } from '../../store/usersSlice'
@@ -94,8 +94,9 @@ const MeetupDetail = () => {
 
   const handleUnregister = () => {
     const updatedMeetup = deleteAttendee(+id!, user!.name)
-
     updatedMeetup ? setMeetup({ ...updatedMeetup }) : setError(true)
+    const updatedUser = deleteAttending(user!.id, +id!)
+    updatedUser ? dispatch(updateUser(updatedUser)) : setError(true)
   }
 
   return (
@@ -148,14 +149,16 @@ const MeetupDetail = () => {
               {user && meetup.attendees.length < maxAttendees && isCurrent && !isAttending && (
                 <button onClick={handleAddAttendee}>Attend</button>
               )}
-              {user && meetup.attendees.length < maxAttendees && isCurrent && isAttending && (
+              {user && isCurrent && isAttending && (
                 <div>
                   <p className={classes.highlightBox}>You're going!</p>
                   <button onClick={handleUnregister}>Unregister</button>
                 </div>
               )}
               {!user && meetup.attendees.length < maxAttendees && isCurrent && <button onClick={handleLogin}>Log in to attend</button>}
-              {meetup.attendees.length >= maxAttendees && isCurrent && <p className={classes.highlightBox}>Meetup is fully booked</p>}
+              {meetup.attendees.length >= maxAttendees && isCurrent && !isAttending && (
+                <p className={classes.highlightBox}>Meetup is fully booked</p>
+              )}
               {!isCurrent && <p className={classes.highlightBox}>Meetup is over</p>}
             </section>
           </div>

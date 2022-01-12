@@ -77,7 +77,7 @@ describe('App integration tests - registering for events', () => {
   })
   it('renders message Meetup full if attendee limit is reached', () => {
     // Login
-    login('hannah@gmail.com', 'hannahIsBest')
+    login('emma@gmail.com', 'emmaIsBest')
     // Navigate to detail page
     const cards = screen.getAllByTestId('currentListItem')
     const card3 = cards[2]
