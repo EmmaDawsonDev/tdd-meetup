@@ -65,7 +65,7 @@ const AddMeetup = () => {
 
   return (
     <main>
-      <h1>Add Meetup</h1>
+      <h2>Add Meetup</h2>
       <form className={classes.meetupForm} onSubmit={handleAddMeetup}>
         <div className={classes.meetupItem}>
           <label htmlFor="title">
